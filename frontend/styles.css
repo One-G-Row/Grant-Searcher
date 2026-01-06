@@ -1,0 +1,103 @@
+body{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.header-title{
+font-size: 24pt;
+text-align: center;
+}
+
+.grant-card{
+    width: 70vw;
+    height: auto; 
+    margin: auto;
+}
+
+.title-container, .opendate-container, .closedate-container, .agency-container{
+    display: flex;
+}
+
+.grant-ul{
+    list-style-type: none;
+    box-shadow: 1px 10px 8px #888888;
+    margin: 1rem;
+    padding: 1rem;
+}
+
+li{
+    list-style-type: none;
+}
+
+button{
+  display: inline-flex;
+    padding: 10px;
+    border: 1px solid #000;
+    border-radius: 4px;
+    margin: 0 0.5rem;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+/* style ul search of gov grants */
+.list-grants{
+    display: block;
+    text-align: left;
+}
+
+/* center the buttons and search section */
+.buttons-section, .search-section{
+    margin: 1rem 20rem;
+}
+
+/* style search input field */
+.search-input{
+    width: 40vw;
+    height: 2vw;
+    border: 1px solid #000;
+    border-radius: 12px;
+    padding: 0.5rem 2rem;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* style search button */
+.search-button{
+    position: absolute;
+    top: 14vh;
+    left: 64vw;
+    height: 30px;
+    padding: 10px;
+    border: none;
+    border-radius: 50px;
+    background-color: #fff;
+    /* color: #fff; */
+    font-size: 12pt;
+    /* background-color: #fff; */
+    cursor: pointer;
+}
+
+/* .search-button:hover{
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #000;
+} */
+
+.list-grants{
+    margin: 2rem 18rem;
+}
+
+.title{
+    font-weight: bold;
+}
+
+.buttons-section button{
+    background-color: #fff;
+}
+
+.buttons-section button:hover{
+    background-color: #000;
+    color: #fff;
+}
+
+.no-grant{
+    font-weight: bold;
+    text-align:  center;
+}
