@@ -528,7 +528,7 @@ let searchInput = document.querySelector(".search-input")
 let searchButton = document.querySelector(".search-button")
 searchButton.addEventListener("click", searchGrants)
 
-searchInput.addEventListener("input", searchGrants)
+//searchInput.addEventListener("input", searchGrants)
 
 searchInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
