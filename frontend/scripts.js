@@ -1,6 +1,7 @@
 const listGrants = document.querySelector(".list-grants")
 console.log(listGrants)
 
+
 //get grants button to trigger listing grants
 const grantsButton = document.querySelector(".gov-grants-button")
 
@@ -275,29 +276,50 @@ openAfricaButton.addEventListener("click", async () => {
 
         let data = responseData.data
 
+        let date = responseData.date
+        console.log(date)
+
         let openAfricaArr = []
 
-        for (let grant of data) {
-            let openAfricaTitle = document.createElement("li")
-            openAfricaTitle.innerHTML = `<label>Grant Title: </label> ${grant.title}`
-            let openAfricaLink = document.createElement("li")
-            openAfricaLink.innerHTML = `<label>Grant URL: </label><a href=${grant.url} target="_blank">${grant.url}</a>`
-            let ul = document.createElement("ul")
+        data.forEach((grant) => {
+            date.forEach((d) => {
+                let grantDate = d.date
+                console.log(grantDate)
 
 
-            let openAfricaObj = {
-                title: grant.title,
-                url: grant.url
-            }
+                //get the current date
+                let currentDate = new Date()
+                let currentYear = currentDate.getFullYear()
+                let lastYear = currentYear - 11
+                console.log(currentYear)
+                console.log(lastYear)
 
-            openAfricaArr.push(openAfricaObj)
+                if (grantDate.includes(lastYear) || grantDate.includes(currentYear)) {
+                    let openAfricaTitle = document.createElement("li")
+                    openAfricaTitle.innerHTML = `<label>Grant Title: </label> ${grant.title}`
+                    let openAfricaDate = document.createElement("li")
+                    openAfricaDate.innerHTML = `<label>Published Date : </label> ${grantDate}`
+                    let openAfricaLink = document.createElement("li")
+                    openAfricaLink.innerHTML = `<label>Grant URL: </label><a href=${grant.url} target="_blank">${grant.url}</a>`
+                    let ul = document.createElement("ul")
 
-            localStorage.setItem("openAfricaAid", JSON.stringify(openAfricaArr))
 
-            ul.append(openAfricaTitle, openAfricaLink)
+                    let openAfricaObj = {
+                        title: grant.title,
+                        date: grantDate,
+                        url: grant.url
+                    }
 
-            listGrants.appendChild(ul)
-        }
+                    openAfricaArr.push(openAfricaObj)
+
+                    localStorage.setItem("openAfricaAid", JSON.stringify(openAfricaArr))
+
+                    ul.append(openAfricaTitle, openAfricaDate, openAfricaLink)
+
+                    listGrants.appendChild(ul)
+                }
+            })
+        })
 
 
     } catch (error) {
@@ -306,7 +328,7 @@ openAfricaButton.addEventListener("click", async () => {
 })
 
 //search grants based on title, location and category
-function searchGrants(){
+function searchGrants() {
     listGrants.innerHTML = ""
 
     let grantsFound = false
@@ -479,6 +501,8 @@ function searchGrants(){
             let title = document.createElement("li")
             title.setAttribute("class", "title")
             title.innerHTML = `<label>Grant Title: </label>${grant.title}`
+            let date = document.createElement("li")
+            date.innerHTML = `<label>Published Date: </label>${grant.date}`
             let url = document.createElement("li")
             url.innerHTML = `<label>Grant URL: </label><a href=${grant.url} target="_blank">${grant.url}</a>`
             listopenAfricaGrants.append(title, url)
@@ -504,12 +528,14 @@ let searchInput = document.querySelector(".search-input")
 let searchButton = document.querySelector(".search-button")
 searchButton.addEventListener("click", searchGrants)
 
+searchInput.addEventListener("input", searchGrants)
+
 searchInput.addEventListener("keypress", (e) => {
-    if(e.key === "Enter"){
+    if (e.key === "Enter") {
         searchGrants()
     }
 })
- 
+
 //if input field value is empty then make the listGrants empty
 searchInput.addEventListener("input", () => {
     let search = searchInput.value

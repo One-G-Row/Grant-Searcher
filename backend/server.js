@@ -166,6 +166,19 @@ app.get('/api/openafrica', async (req, res) => {
 
         await page.waitForSelector('.dataset-heading', { timeout: 40000 })
 
+        await page.waitForSelector('.dataset-date', { timeout: 40000 })
+
+        let grantsDate = await page.$$eval(".dataset-date", elements => 
+            elements.map(el => {
+                return {
+                    date: el.textContent.trim()
+                }
+            })
+        )
+
+        console.log(grantsDate)
+
+
         let grants = await page.$$eval(".dataset-heading", elements =>
             elements.map(el => {
                 console.log(el)
@@ -185,12 +198,14 @@ app.get('/api/openafrica', async (req, res) => {
         )
         // Filter out any null/empty entries
         grants = grants.filter(grant => grant.title && grant.url)
+
         console.log(grants)
 
         await browser.close()
         res.json({
             success: true,
             data: grants,
+            date: grantsDate
         })
     } catch (error) {
         console.log('Scraping error:', error)

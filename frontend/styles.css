@@ -101,3 +101,37 @@ button{
     font-weight: bold;
     text-align:  center;
 }
+
+@media(max-width: 480px){
+    .search-section, .buttons-section{
+        margin: 1rem;
+    }
+
+    .list-grants{
+        margin-left: -1.8rem;
+        width: 100vw;
+    }
+
+    .search-button{
+        position: absolute;
+        top: 5.5rem;
+        left: 18rem;
+    }
+
+    .buttons-section button{
+        margin-bottom: 1rem;
+    }
+
+    .search-input{
+        width: 70vw;
+        height: 4vh;
+    }
+
+    .no-grant{
+        margin-left: 3rem;
+        display: inline-flex;
+
+    }
+
+   
+}
