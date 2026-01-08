@@ -20,7 +20,17 @@ app.use((req, res, next) => {
 
 app.get('/api/funds-for-ngos', async (req, res) => {
     try {
-        const browser = await puppeteer.launch({})
+        const browser = await puppeteer.launch({
+            headless: 'new',
+            args: [
+                '--no-sandbox',
+                '--disable-setuid-sandbox',
+                '--disable-dev-shm-usage',
+                '--disable-gpu',
+                '--disable-software-rasterizer',
+                '--disable-dev-tools'
+            ]
+        })
         const page = await browser.newPage()
 
         await page.goto(
@@ -62,7 +72,17 @@ app.get('/api/funds-for-ngos', async (req, res) => {
 
 app.get('/api/africanngos', async (req, res) => {
     try {
-        const browser = await puppeteer.launch({})
+        const browser = await puppeteer.launch({
+            headless: 'new',
+            args: [
+                '--no-sandbox',
+                '--disable-setuid-sandbox',
+                '--disable-dev-shm-usage',
+                '--disable-gpu',
+                '--disable-software-rasterizer',
+                '--disable-dev-tools'
+            ]
+        })
         const page = await browser.newPage()
         await page.goto(
             'https://africanngos.org/2025/12/03/african-ngo-funding-opportunities-december-2025-january-2026/',
@@ -75,13 +95,13 @@ app.get('/api/africanngos', async (req, res) => {
 
         let grants = await page.$$eval("p", elements =>
             elements.map(el => {
-               const strongEl = el.querySelector("strong")
-               const link = el.querySelector("a")
-           
+                const strongEl = el.querySelector("strong")
+                const link = el.querySelector("a")
+
                 return {
                     title: strongEl ? strongEl.textContent.trim() : null,
                     url: link ? link.href : null
-                }  
+                }
             }
             )
         )
@@ -104,7 +124,17 @@ app.get('/api/africanngos', async (req, res) => {
 
 app.get('/api/instrumentl', async (req, res) => {
     try {
-        const browser = await puppeteer.launch({})
+        const browser = await puppeteer.launch({
+            headless: 'new',
+            args: [
+                '--no-sandbox',
+                '--disable-setuid-sandbox',
+                '--disable-dev-shm-usage',
+                '--disable-gpu',
+                '--disable-software-rasterizer',
+                '--disable-dev-tools'
+            ]
+        })
         const page = await browser.newPage()
         await page.goto(
             'https://www.instrumentl.com/browse-grants/africa',
@@ -115,24 +145,24 @@ app.get('/api/instrumentl', async (req, res) => {
             timeout: 10000
         })
 
-        let body = await page.$$eval("body", elements => 
+        let body = await page.$$eval("body", elements =>
             elements.map(el => {
                 return {
                     body: el ? el.textContent.trim() : null,
-                }  
+                }
             }
             )
         )
 
         let grants = await page.$$eval("h3", elements =>
             elements.map(el => {
-               /* const strongEl = el.querySelector("strong") */
-               const link = el.querySelector("a")
+                /* const strongEl = el.querySelector("strong") */
+                const link = el.querySelector("a")
 
                 return {
                     title: el ? el.textContent.trim() : null,
                     url: link ? link.href : null
-                }  
+                }
             }
             )
         )
@@ -142,7 +172,7 @@ app.get('/api/instrumentl', async (req, res) => {
         res.json({
             success: true,
             data: grants,
-            content:body
+            content: body
         })
     } catch (error) {
         console.log('Scraping error:', error)
@@ -156,19 +186,29 @@ app.get('/api/instrumentl', async (req, res) => {
 
 app.get('/api/openafrica', async (req, res) => {
     try {
-        const browser = await puppeteer.launch({})
+        const browser = await puppeteer.launch({
+            headless: 'new',
+            args: [
+                '--no-sandbox',
+                '--disable-setuid-sandbox',
+                '--disable-dev-shm-usage',
+                '--disable-gpu',
+                '--disable-software-rasterizer',
+                '--disable-dev-tools'
+            ]
+        })
         const page = await browser.newPage()
         await page.goto(
             'https://open.africa/dataset/?q=grants',
             { timeout: 60000 }
-        
+
         )
 
         await page.waitForSelector('.dataset-heading', { timeout: 40000 })
 
         await page.waitForSelector('.dataset-date', { timeout: 40000 })
 
-        let grantsDate = await page.$$eval(".dataset-date", elements => 
+        let grantsDate = await page.$$eval(".dataset-date", elements =>
             elements.map(el => {
                 return {
                     date: el.textContent.trim()
@@ -185,14 +225,14 @@ app.get('/api/openafrica', async (req, res) => {
 
                 const link = el.querySelector("a")
 
-                if(!link){
+                if (!link) {
                     return null
                 }
 
                 return {
                     title: link.textContent.trim(),
                     url: link.href
-                }  
+                }
             }
             )
         )
