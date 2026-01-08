@@ -1,6 +1,7 @@
 const listGrants = document.querySelector(".list-grants")
 console.log(listGrants)
 
+const API_URL = "https://one-g-row.github.io/Grant-Searcher/api" || "http://127.0.0.1:3000/api"
 
 //get grants button to trigger listing grants
 const grantsButton = document.querySelector(".gov-grants-button")
@@ -13,7 +14,7 @@ let requestBody = {
 
 
 async function postGrants() {
-    let response = await fetch("http://127.0.0.1:3000/api/grants/search", {
+    let response = await fetch(`${API_URL}/grants/search`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -119,7 +120,7 @@ fundsForNgosButton.addEventListener("click", async () => {
     let grantCard = document.createElement("div")
     grantCard.setAttribute("class", "grant-card")
 
-    const response = await fetch('http://127.0.0.1:3000/api/funds-for-ngos')
+    const response = await fetch(`${API_URL}/funds-for-ngos`)
 
     if (!response.ok) {
         console.log(`HTTP SERVER ERROR, ${response.status}`)
@@ -167,7 +168,7 @@ africanNgosButton.addEventListener("click", async () => {
     let grantCard = document.createElement("div")
     grantCard.setAttribute("class", "grant-card")
 
-    const response = await fetch('http://127.0.0.1:3000/api/africanngos')
+    const response = await fetch(`${API_URL}/africanngos`)
 
     if (!response.ok) {
         console.log(`HTTP SERVER ERROR, ${response.status}`)
@@ -218,7 +219,7 @@ let instrumentlButton = document.querySelector(".instrumentl-button")
 instrumentlButton.addEventListener("click", async () => {
     try {
         listGrants.innerHTML = ""
-        const response = await fetch(`http://127.0.0.1:3000/api/instrumentl`)
+        const response = await fetch(`${API_URL}/instrumentl`)
 
         if (!response.ok) {
             console.log(`HTTP SERVER ERROR, ${response.status}`)
@@ -265,7 +266,7 @@ let openAfricaButton = document.querySelector(".open-africa-button")
 openAfricaButton.addEventListener("click", async () => {
     try {
         listGrants.innerHTML = ""
-        const response = await fetch('http://127.0.0.1:3000/api/openafrica')
+        const response = await fetch(`${API_URL}/openafrica`)
 
         if (!response.ok) {
             console.log(`HTTP SERVER ERROR, ${response.status}`)
