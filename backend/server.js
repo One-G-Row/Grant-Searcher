@@ -42,17 +42,23 @@ app.get('/api/funds-for-ngos', async (req, res) => {
             timeout: 10000
         })
 
-        let grants = await page.$$eval("h2", elements =>
+        let grants = await page.$$eval("article.post", elements =>
             elements.map(el => {
-                const link = el.querySelector("a")
+                const header = el.querySelector(".entry-header")
+                const h2 = header ? header.querySelector("h2") : null
+                const link = h2 ? h2.querySelector("a") : null
+                const contentDiv = el.querySelector(".entry-content")
+                const contentText = contentDiv ? contentDiv.querySelector("p") : null
+
                 return {
-                    title: el.textContent.trim(),
-                    url: link ? link.href : null
+                    title: h2 ? h2.textContent.trim() : null,
+                    url: link ? link.href : null,
+                    content: contentText ? contentText.textContent.trim() : null
                 }
             })
         )
 
-        //grants = grants.filter(grants.url !== null)
+        grants = grants.filter(grant => grant.url !== null)
 
         console.log(grants)
         browser.close()
@@ -98,9 +104,17 @@ app.get('/api/africanngos', async (req, res) => {
                 const strongEl = el.querySelector("strong")
                 const link = el.querySelector("a")
 
+                // Clone the element to manipulate it
+                const clone = el.cloneNode(true)
+
+                clone.querySelectorAll('br').forEach(br => {
+                    br.replaceWith('\n')
+                })
+
                 return {
                     title: strongEl ? strongEl.textContent.trim() : null,
-                    url: link ? link.href : null
+                    url: link ? link.href : null,
+                    content: clone.textContent.trim()
                 }
             }
             )

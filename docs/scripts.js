@@ -1,10 +1,11 @@
 const listGrants = document.querySelector(".list-grants")
 console.log(listGrants)
 
-const API_URL = "https://grant-searcher-backend.onrender.com/api" || "http://127.0.0.1:3000/api"
+//const API_URL = "https://grant-searcher-backend.onrender.com/api" || "http://127.0.0.1:3000/api"
+const API_URL = "http://127.0.0.1:3000/api"
 
 //get grants button to trigger listing grants
-const grantsButton = document.querySelector(".gov-grants-button")
+const grantsGovButton = document.querySelector(".gov-grants-button")
 
 let requestBody = {
     "rows": 100,
@@ -35,7 +36,7 @@ async function postGrants() {
 }
 
 
-grantsButton.addEventListener("click", async () => {
+grantsGovButton.addEventListener("click", async () => {
     listGrants.innerHTML = ""
 
     const responseData = await postGrants()
@@ -128,29 +129,35 @@ fundsForNgosButton.addEventListener("click", async () => {
 
     const responseData = await response.json()
 
+
     let data = responseData.data
+    let content = data.content
+
     //let links = responseData.links
 
     let fundsNgosArr = []
 
     data.forEach((grant) => {
         let fundsTitle = document.createElement("li")
-        fundsTitle.innerHTML = `<label>Grant Title: </label>${grant.title}`
+        fundsTitle.innerHTML = `<label><b>Grant Title:</b> </label>${grant.title}`
         let fundsUrl = document.createElement("li")
-        fundsUrl.innerHTML = `<label>Grant URL: </label><a href=${grant.url} target="_blank">${grant.url}</a>`
+        fundsUrl.innerHTML = `<label><b>Grant URL:</b> </label><a href=${grant.url} target="_blank">${grant.url}</a>`
+        let fundsDate = document.createElement("li")
+        fundsDate.innerHTML = `<span>${grant.content.slice(0, 21)}</span>`
 
         let ul = document.createElement("ul")
 
         let fundsNgosObj = {
             title: grant.title,
             url: grant.url,
+            date: grant.content.slice(0, 20)
         }
 
         fundsNgosArr.push(fundsNgosObj)
 
         localStorage.setItem("fundsForNgos", JSON.stringify(fundsNgosArr))
 
-        ul.append(fundsTitle, fundsUrl)
+        ul.append(fundsTitle, fundsUrl, fundsDate)
         grantCard.appendChild(ul)
         listGrants.appendChild(grantCard)
     })
@@ -183,6 +190,7 @@ africanNgosButton.addEventListener("click", async () => {
     data.forEach((grant) => {
         let africanNgoTitle = document.createElement("li")
         let africanNgoUrl = document.createElement("li")
+        let africanNgoContent = document.createElement("div")
 
         //console.log(grant.title)
 
@@ -190,8 +198,9 @@ africanNgosButton.addEventListener("click", async () => {
 
         if (grant.title !== null || grant.url !== null) {
             title.push(grant.title)
-            africanNgoTitle.innerHTML = `<label>Grant Title: </label> ${title}`
-            africanNgoUrl.innerHTML = `<label>Grant URL: </label><a href=${grant.url} target="_blank">${grant.url}</a>`
+            africanNgoTitle.innerHTML = `<label><b>Grant Title:</b> </label> ${title}`
+            africanNgoUrl.innerHTML = `<label><b>Grant URL:</b> </label><a href=${grant.url} target="_blank">${grant.url}</a>`
+            africanNgoContent.innerHTML = `<p style="white-space: pre-line">${grant.content}</p><br>`
         }
 
         let ul = document.createElement("ul")
@@ -199,13 +208,14 @@ africanNgosButton.addEventListener("click", async () => {
         let africanNgosObj = {
             title: grant.title,
             url: grant.url,
+            content: grant.content
         }
 
         africanNgosArr.push(africanNgosObj)
 
         localStorage.setItem("africanNgos", JSON.stringify(africanNgosArr))
 
-        ul.append(africanNgoTitle, africanNgoUrl)
+        ul.append(africanNgoTitle, africanNgoUrl, africanNgoContent)
         grantCard.appendChild(ul)
         listGrants.appendChild(grantCard)
     })
@@ -350,11 +360,12 @@ function searchGrants() {
 
     govGrantTitle.filter((grant) => {
         let modifiedTitle = grant.title.toLowerCase()
+        let modifiedAgency = grant.agency.toLowerCase()
 
         let check = modifiedTitle.includes(inputValue)
         console.log(check)
 
-        if (modifiedTitle.includes(inputValue)) {
+        if (modifiedTitle.includes(inputValue) || modifiedAgency.includes(inputValue)) {
             //let grantSection = document.createElement("div")
             let listGovGrants = document.createElement("ul")
             listGovGrants.setAttribute("class", "list-gov-grants")
@@ -398,6 +409,9 @@ function searchGrants() {
             title.innerHTML = `<label>Grant Title: </label>${grant.title}`
             let url = document.createElement("li")
             url.innerHTML = `<label>Grant URL: </label><a href=${grant.url} target="_blank">${grant.url}</a>`
+            //let date = document.createElement("li")
+            //date.innerHTML = `<span>${grant.content.slice(0, 21)}</span>`
+
             listFundNgosGrants.append(title, url)
             listGrants.appendChild(listFundNgosGrants)
 
@@ -444,7 +458,10 @@ function searchGrants() {
             title.innerHTML = `<label>Grant Title: </label>${grant.title}`
             let url = document.createElement("li")
             url.innerHTML = `<label>Grant URL: </label><a href=${grant.url} target="_blank">${grant.url}</a>`
-            listAfricanNgosGrants.append(title, url)
+            let content = document.createElement("div")
+            content.innerHTML = `<p style="white-space: pre-line">${grant.content}</p>`
+
+            listAfricanNgosGrants.append(title, url, content)
             listGrants.appendChild(listAfricanNgosGrants)
 
             //change status of grants Found to true to display message if no grants are found
