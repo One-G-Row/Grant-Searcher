@@ -1,8 +1,8 @@
 const listGrants = document.querySelector(".list-grants")
 console.log(listGrants)
 
-//const API_URL = "https://grant-searcher-backend.onrender.com/api" || "http://127.0.0.1:3000/api"
-const API_URL = "http://127.0.0.1:3000/api"
+const API_URL = "https://grant-searcher-backend.onrender.com/api" || "http://127.0.0.1:3000/api"
+//const API_URL = "http://127.0.0.1:3000/api"
 
 //get grants button to trigger listing grants
 const grantsGovButton = document.querySelector(".gov-grants-button")
