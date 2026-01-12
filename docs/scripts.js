@@ -346,7 +346,7 @@ openAfricaButton.addEventListener("click", async () => {
 })
 
 //search grants based on title, location and category
-function searchGrants() {
+async function searchGrants() {
     listGrants.innerHTML = ""
 
     let grantsFound = false
@@ -398,9 +398,9 @@ function searchGrants() {
 
     //search for funds for ngos
     //let fundsForNgos = JSON.parse(localStorage.getItem("fundsForNgos"))
-    let data = fetch(`${API_URL}/funds-for-ngos`)
+    let response = await fetch(`${API_URL}/funds-for-ngos`)
 
-    let fundsForNgos = data.json()
+    let fundsForNgos = await response.json()
 
     //console.log(fundsForNgos)
 
