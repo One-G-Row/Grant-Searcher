@@ -353,6 +353,7 @@ function searchGrants() {
 
     //gov grants search
     let govGrants = JSON.parse(localStorage.getItem("grantsGov"))
+    //let govGrants = await fetch(`${API_URL}/`)
     console.log(govGrants)
 
     let govGrantTitle = []
@@ -396,7 +397,11 @@ function searchGrants() {
     })
 
     //search for funds for ngos
-    let fundsForNgos = JSON.parse(localStorage.getItem("fundsForNgos"))
+    //let fundsForNgos = JSON.parse(localStorage.getItem("fundsForNgos"))
+    let data = fetch(`${API_URL}/funds-for-ngos`)
+
+    let fundsForNgos = data.json()
+
     //console.log(fundsForNgos)
 
     let fundsNgosTitle = []
