@@ -400,9 +400,9 @@ async function searchGrants() {
     //let fundsForNgos = JSON.parse(localStorage.getItem("fundsForNgos"))
     let response = await fetch(`${API_URL}/funds-for-ngos`)
 
-    let fundsForNgos = await response.json()
+    let responseData = await response.json()
 
-    fundsForNgos = fundsForNgos.data
+    let fundsForNgos = responseData.data
     console.log(fundsForNgos)
 
     let fundsNgosTitle = []
