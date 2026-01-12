@@ -3,6 +3,9 @@ const fetch = require('node-fetch')
 const cors = require('cors')
 const puppeteer = require('puppeteer')
 
+console.log('Puppeteer cache directory:', puppeteer.configuration?.cacheDirectory);
+console.log('Current directory:', __dirname);
+
 const app = express()
 
 
