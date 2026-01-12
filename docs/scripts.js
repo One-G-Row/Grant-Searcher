@@ -402,6 +402,7 @@ async function searchGrants() {
 
     let fundsForNgos = await response.json()
 
+    fundsForNgos = fundsForNgos.data
     console.log(fundsForNgos)
 
     let fundsNgosTitle = []
