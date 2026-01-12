@@ -168,18 +168,25 @@ app.get('/api/instrumentl', async (req, res) => {
             )
         )
 
-        let grants = await page.$$eval("h3", elements =>
+        let grants = await page.$$eval(".featured-grant", elements =>
             elements.map(el => {
-                /* const strongEl = el.querySelector("strong") */
-                const link = el.querySelector("a")
+                const date = el.querySelector(".deadline")
+                const deadline = date ? date.querySelector(".pull-right") : null
+                const headerContainer = el.querySelector(".header")
+                const title = headerContainer.querySelector("h3")
+                const linkContainer = headerContainer.querySelector("h3")
+                const link = linkContainer.querySelector("a")
 
                 return {
-                    title: el ? el.textContent.trim() : null,
-                    url: link ? link.href : null
+                    title: title ? title.title : null,
+                    url: link ? link.href : null,
+                    deadline: deadline ? deadline.textContent : null
                 }
             }
             )
         )
+
+        grants.filter(grant => grant !== null)
 
         console.log(grants, body)
         browser.close()
@@ -222,15 +229,15 @@ app.get('/api/openafrica', async (req, res) => {
 
         await page.waitForSelector('.dataset-date', { timeout: 40000 })
 
-        let grantsDate = await page.$$eval(".dataset-date", elements =>
-            elements.map(el => {
-                return {
-                    date: el.textContent.trim()
-                }
-            })
-        )
+        // let grantsDate = await page.$$eval(".dataset-date", elements =>
+        //     elements.map(el => {
+        //         return {
+        //             date: el.textContent.trim()
+        //         }
+        //     })
+        // )
 
-        console.log(grantsDate)
+        //console.log(grantsDate)
 
 
         let grants = await page.$$eval(".dataset-heading", elements =>
@@ -238,6 +245,7 @@ app.get('/api/openafrica', async (req, res) => {
                 console.log(el)
 
                 const link = el.querySelector("a")
+                const date = el.querySelector("div.dataset-date")
 
                 if (!link) {
                     return null
@@ -245,7 +253,8 @@ app.get('/api/openafrica', async (req, res) => {
 
                 return {
                     title: link.textContent.trim(),
-                    url: link.href
+                    url: link.href,
+                    date: date ? date.textContent.trim() : null
                 }
             }
             )
@@ -259,7 +268,6 @@ app.get('/api/openafrica', async (req, res) => {
         res.json({
             success: true,
             data: grants,
-            date: grantsDate
         })
     } catch (error) {
         console.log('Scraping error:', error)
@@ -271,20 +279,6 @@ app.get('/api/openafrica', async (req, res) => {
 
 })
 
-// app.get('/api/scraper', async (res, next)=> {
-//     const browser = await puppeteer.launch({})
-//     const page = await browser.newPage()
-//     await page.goto(
-// 'https://www.geeksforgeeks.org/node-js/explain-the-mechanism-of-event-loop-in-node-js/')
-//     let element = await page.waitFor("h1")
-//     let text = await page.evaluate(
-//         element => element.textContent, element)
-//     console.log(text)
-//     browser.close()
-//     return text
-
-//     next()
-// })
 
 let responseData = ""
 
