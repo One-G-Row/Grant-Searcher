@@ -292,7 +292,7 @@ app.get('/api/trustafrica', async (req, res) => {
             { timeout: 60000 }
         )
 
-        await page.waitForSelector("tr", {
+        await page.waitForSelector("#flux_table", {
             timeout: 10000
         })
 
