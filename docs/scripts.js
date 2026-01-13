@@ -360,6 +360,8 @@ trustAfricaButton.addEventListener("click", async () => {
     const data = responseData.data
     console.log(data)
 
+    let trustAfricaArr = []
+
     data.forEach((grant) => {
             let trustAfricaTitle = document.createElement("li")
             trustAfricaTitle.innerHTML = `<label><b>Grant Title:</b> </label> <h1>${grant.title}</h1>`
