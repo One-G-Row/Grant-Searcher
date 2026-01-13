@@ -316,7 +316,6 @@ app.get('/api/trustafrica', async (req, res) => {
 
         grants.filter(grant => grant !== null)
 
-        console.log(grants, body)
         browser.close()
         res.json({
             success: true,
