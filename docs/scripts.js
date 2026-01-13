@@ -358,6 +358,7 @@ trustAfricaButton.addEventListener("click", async () => {
     const responseData = await response.json()
 
     const data = responseData.data
+    console.log(data)
 
      data.forEach((grant) => {
             let trustAfricaTitle = document.createElement("li")
