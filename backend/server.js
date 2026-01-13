@@ -301,9 +301,9 @@ app.get('/api/trustafrica', async (req, res) => {
 
             if (tds.length === 0) return null
 
-            const amount = tds[0]?.textContent.trim() || null
+            const amount = tds[1]?.textContent.trim() || null
 
-            const titleContainer = tds[1]
+            const titleContainer = tds[0]
             const title =
                 titleContainer?.querySelector("b")?.textContent.trim() || null
 
@@ -318,9 +318,9 @@ app.get('/api/trustafrica', async (req, res) => {
         )
         )
 
-        grants.filter(grant => grant !== null)
+       grants = grants.filter(grant => grant !== null)
 
-        browser.close()
+       await browser.close()
         res.json({
             success: true,
             data: grants,
