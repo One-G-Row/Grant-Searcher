@@ -296,22 +296,26 @@ app.get('/api/trustafrica', async (req, res) => {
             timeout: 10000
         })
 
-        let grants = await page.$$eval("#flux_table", elements =>
-            elements.map(el => {
-                let body = el.querySelector("tbody tr")
-                const amount = body ? body.querySelector("td") : null
-                const titleContainer = body ? body.querySelector("td") : null
-                const titleCon = titleContainer ? titleContainer.querySelector("p") : null
-                const title = titleCon ? titleCon.querySelector("b") : null
+        let grants = await page.$$eval("#flux_table tbody tr", rows => rows.map(row => {
+            const tds = row.querySelectorAll("td")
 
+            if (tds.length === 0) return null
 
-                return {
-                    amount: amount ? amount.textContent.trim() : null,
-                    title: title ? title.textContent.trim(): null,
-                    content: titleCon ? titleCon.textContent.trim(): null
-                }
+            const amount = tds[0]?.textContent.trim() || null
+
+            const titleContainer = tds[1]
+            const title =
+                titleContainer?.querySelector("b")?.textContent.trim() || null
+
+            const content =
+                titleContainer?.textContent.trim() || null
+            return {
+                amount: amount,
+                title: title,
+                content: content
             }
-            )
+        }
+        )
         )
 
         grants.filter(grant => grant !== null)
