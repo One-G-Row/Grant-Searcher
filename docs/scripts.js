@@ -360,26 +360,26 @@ trustAfricaButton.addEventListener("click", async () => {
     const data = responseData.data
     console.log(data)
 
-    //  data.forEach((grant) => {
-    //         let trustAfricaTitle = document.createElement("li")
-    //         trustAfricaTitle.innerHTML = `<label><b>Grant Title:</b> </label> ${grant.title}`
-    //         let trustAfricaContent = document.createElement("li")
-    //         trustAfricaContent.innerHTML = `<label><b>Grant Content:</b> </label><a href=${grant.content} target="_blank">${grant.url}</a>`
-    //         let trustAfricaAmount = document.createElement("li")
-    //         trustAfricaAmount.innerHTML = `<label><b>Amount:</b> </label><span>${grant.amount}</span>`
+    data.forEach((grant) => {
+            let trustAfricaTitle = document.createElement("li")
+            trustAfricaTitle.innerHTML = `<label><b>Grant Title:</b> </label> ${grant.title}`
+            let trustAfricaContent = document.createElement("li")
+            trustAfricaContent.innerHTML = `<label><b>Grant Content:</b> </label><a href=${grant.content} target="_blank">${grant.url}</a>`
+            let trustAfricaAmount = document.createElement("li")
+            trustAfricaAmount.innerHTML = `<label><b>Amount:</b> </label><span>${grant.amount}</span>`
             
-    //         let ul = document.createElement("ul")
+            let ul = document.createElement("ul")
 
-    //         let trustAfricaObj = {
-    //             title: grant.title,
-    //             amount: grant.amount,
-    //             content: grant.content
-    //         }
+            let trustAfricaObj = {
+                title: grant.title,
+                amount: grant.amount,
+                content: grant.content
+            }
 
-    //         trustAfricaArr.push(trustAfricaObj)
+            trustAfricaArr.push(trustAfricaObj)
 
-    //         localStorage.setItem("trustAfrica", JSON.stringify(trustAfricaArr))
-    //     })
+            localStorage.setItem("trustAfrica", JSON.stringify(trustAfricaArr))
+        })
 }catch(error){
     console.log('Error', error)
 }
