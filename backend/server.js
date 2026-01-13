@@ -296,12 +296,13 @@ app.get('/api/trustafrica', async (req, res) => {
             timeout: 10000
         })
 
-        let grants = await page.$$eval("tr", elements =>
+        let grants = await page.$$eval("#flux_table", elements =>
             elements.map(el => {
-                const amount = el.querySelector("td")
-                const titleContainer = el.querySelector("td")
-                const titleCon = titleContainer.querySelector("p")
-                const title = titleCon.querySelector("b")
+                let body = el.querySelector("tbody tr")
+                const amount = body ? body.querySelector("td") : null
+                const titleContainer = body ? body.querySelector("td") : null
+                const titleCon = titleContainer ? titleContainer.querySelector("p") : null
+                const title = titleCon ? titleCon.querySelector("b") : null
 
 
                 return {
