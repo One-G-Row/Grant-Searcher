@@ -411,13 +411,13 @@ async function searchGrants() {
     let fundsForNgos = responseData.data
     console.log(fundsForNgos)
 
-    // let fundsNgosTitle = []
+    let fundsNgosTitle = []
 
-    // for (let grant of fundsForNgos) {
-    //     fundsNgosTitle.push(grant)
-    // }
+    for (let grant of fundsForNgos) {
+        fundsNgosTitle.push(grant)
+    }
 
-    fundsForNgos.filter((grant) => {
+    fundsNgosTitle.filter((grant) => {
         let modifiedFundsTitle = grant.title.toLowerCase()
 
         console.log(grant.date)
