@@ -301,7 +301,7 @@ app.get('/api/trustafrica', async (req, res) => {
 
             if (tds.length === 0) return null
 
-            const amount = tds[1]?.textContent.trim() || null
+            const amount = tds[0]?.textContent.trim() || null
 
             const titleContainer = tds[0]
             const title =
