@@ -402,18 +402,22 @@ async function searchGrants() {
     //let fundsForNgos = JSON.parse(localStorage.getItem("fundsForNgos"))
     let response = await fetch(`${API_URL}/funds-for-ngos`)
 
+    if (!response.ok) {
+        console.log(`HTTP SERVER ERROR, ${response.status}`)
+    }
+
     let responseData = await response.json()
 
     let fundsForNgos = responseData.data
     console.log(fundsForNgos)
 
-    let fundsNgosTitle = []
+    // let fundsNgosTitle = []
 
-    for (let grant of fundsForNgos) {
-        fundsNgosTitle.push(grant)
-    }
+    // for (let grant of fundsForNgos) {
+    //     fundsNgosTitle.push(grant)
+    // }
 
-    fundsNgosTitle.filter((grant) => {
+    fundsForNgos.filter((grant) => {
         let modifiedFundsTitle = grant.title.toLowerCase()
 
         console.log(grant.date)
