@@ -1,7 +1,8 @@
 const express = require('express')
 const fetch = require('node-fetch')
 const cors = require('cors')
-const puppeteer = require('puppeteer')
+const puppeteer = require('puppeteer');
+const e = require('express');
 
 console.log('Puppeteer cache directory:', puppeteer.configuration?.cacheDirectory);
 console.log('Current directory:', __dirname);
@@ -232,16 +233,6 @@ app.get('/api/openafrica', async (req, res) => {
 
         await page.waitForSelector('.dataset-date', { timeout: 40000 })
 
-        // let grantsDate = await page.$$eval(".dataset-date", elements =>
-        //     elements.map(el => {
-        //         return {
-        //             date: el.textContent.trim()
-        //         }
-        //     })
-        // )
-
-        //console.log(grantsDate)
-
 
         let grants = await page.$$eval(".dataset-heading", elements =>
             elements.map(el => {
@@ -268,6 +259,64 @@ app.get('/api/openafrica', async (req, res) => {
         console.log(grants)
 
         await browser.close()
+        res.json({
+            success: true,
+            data: grants,
+        })
+    } catch (error) {
+        console.log('Scraping error:', error)
+        res.status(500).json({
+            success: false,
+            error: 'Failed to fetch data'
+        })
+    }
+
+})
+
+app.get('/api/trustafrica', async (req, res) => {
+    try {
+        const browser = await puppeteer.launch({
+            headless: 'new',
+            args: [
+                '--no-sandbox',
+                '--disable-setuid-sandbox',
+                '--disable-dev-shm-usage',
+                '--disable-gpu',
+                '--disable-software-rasterizer',
+                '--disable-dev-tools'
+            ]
+        })
+        const page = await browser.newPage()
+        await page.goto(
+            'https://trustafrica.org/fluxx-grants/',
+            { timeout: 60000 }
+        )
+
+        await page.waitForSelector("tr", {
+            timeout: 10000
+        })
+
+        let grants = await page.$$eval("tr", elements =>
+            elements.map(el => {
+                const amount = el.querySelector("td")
+                const titleContainer = el.querySelector("td")
+                const titleCon = titleContainer.querySelector("p")
+                const title = titleCon.querySelector("b")
+
+
+                return {
+                    amount: amount.textContent.trim(),
+                    title: title ? title.textContent.trim(): null,
+                    content: titleCon.textContent.trim()
+                }
+            }
+            )
+        )
+
+        grants.filter(grant => grant !== null)
+
+        console.log(grants, body)
+        browser.close()
         res.json({
             success: true,
             data: grants,

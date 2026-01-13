@@ -345,6 +345,45 @@ openAfricaButton.addEventListener("click", async () => {
     }
 })
 
+//Trust Africa Grants
+const trustAfricaButton = document.querySelector(".trust-africa-button")
+trustAfricaButton.addEventListener("click", async () => {
+    try{
+    const response = await fetch(`${API_URL}/trustafrica`)
+
+    if(!response.ok){
+        console.log(`HTTP ERROR, ${response.status}`)
+    }
+
+    const responseData = await response.json()
+
+    const data = responseData.data
+
+     data.forEach((grant) => {
+            let trustAfricaTitle = document.createElement("li")
+            trustAfricaTitle.innerHTML = `<label><b>Grant Title:</b> </label> ${grant.title}`
+            let trustAfricaContent = document.createElement("li")
+            trustAfricaContent.innerHTML = `<label><b>Grant Content:</b> </label><a href=${grant.content} target="_blank">${grant.url}</a>`
+            let trustAfricaAmount = document.createElement("li")
+            trustAfricaAmount.innerHTML = `<label><b>Amount:</b> </label><span>${grant.amount}</span>`
+            
+            let ul = document.createElement("ul")
+
+            let trustAfricaObj = {
+                title: grant.title,
+                amount: grant.amount,
+                content: grant.content
+            }
+
+            trustAfricaArr.push(trustAfricaObj)
+
+            localStorage.setItem("trustAfrica", JSON.stringify(trustAfricaArr))
+        })
+}catch(error){
+    console.log('Error', error)
+}
+})
+
 //search grants based on title, location and category
 async function searchGrants() {
     listGrants.innerHTML = ""
