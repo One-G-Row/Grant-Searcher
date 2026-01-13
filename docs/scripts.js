@@ -399,16 +399,16 @@ async function searchGrants() {
     })
 
     //search for funds for ngos
-    //let fundsForNgos = JSON.parse(localStorage.getItem("fundsForNgos"))
-    let response = await fetch(`${API_URL}/funds-for-ngos`)
+    let fundsForNgos = JSON.parse(localStorage.getItem("fundsForNgos"))
+    // let response = await fetch(`${API_URL}/funds-for-ngos`)
 
-    if (!response.ok) {
-        console.log(`HTTP SERVER ERROR, ${response.status}`)
-    }
+    // if (!response.ok) {
+    //     console.log(`HTTP SERVER ERROR, ${response.status}`)
+    // }
 
-    let responseData = await response.json()
+    // let responseData = await response.json()
 
-    let fundsForNgos = responseData.data
+    // let fundsForNgos = responseData.data
     console.log(fundsForNgos)
 
     let fundsNgosTitle = []
