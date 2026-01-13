@@ -362,28 +362,28 @@ trustAfricaButton.addEventListener("click", async () => {
 
     let trustAfricaArr = []
 
-    data.forEach((grant) => {
-            let trustAfricaTitle = document.createElement("li")
-            trustAfricaTitle.innerHTML = `<label><b>Grant Title:</b> </label> <h1>${grant.title}</h1>`
-            let trustAfricaContent = document.createElement("li")
-            trustAfricaContent.innerHTML = `<label><b>Grant Content:</b> </label><p>${grant.content}</p>`
-            let trustAfricaAmount = document.createElement("li")
-            trustAfricaAmount.innerHTML = `<label><b>Grant Amount:</b> </label><span>${grant.amount}</span>`
+    // data.forEach((grant) => {
+    //         let trustAfricaTitle = document.createElement("li")
+    //         trustAfricaTitle.innerHTML = `<label><b>Grant Title:</b> </label><h1>${grant.title}</h1>`
+    //         let trustAfricaContent = document.createElement("li")
+    //         trustAfricaContent.innerHTML = `<label><b>Grant Content:</b> </label><p>${grant.content}</p>`
+    //         let trustAfricaAmount = document.createElement("li")
+    //         trustAfricaAmount.innerHTML = `<label><b>Grant Amount:</b> </label><span>${grant.amount}</span>`
             
-            let ul = document.createElement("ul")
+    //         let ul = document.createElement("ul")
 
-            let trustAfricaObj = {
-                title: grant.title,
-                amount: grant.amount,
-                content: grant.content
-            }
+    //         let trustAfricaObj = {
+    //             title: grant.title,
+    //             amount: grant.amount,
+    //             content: grant.content
+    //         }
 
-            trustAfricaArr.push(trustAfricaObj)
+    //         trustAfricaArr.push(trustAfricaObj)
 
-            localStorage.setItem("trustAfrica", JSON.stringify(trustAfricaArr))
+    //         localStorage.setItem("trustAfrica", JSON.stringify(trustAfricaArr))
         
-            ul.append(trustAfricaTitle, trustAfricaContent, trustAfricaAmount)
-        })
+    //         ul.append(trustAfricaTitle, trustAfricaContent, trustAfricaAmount)
+    //     })
 }catch(error){
     console.log('Error', error)
 }

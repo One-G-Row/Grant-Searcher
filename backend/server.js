@@ -309,14 +309,13 @@ app.get('/api/trustafrica', async (req, res) => {
 
             const content =
                 titleContainer?.textContent.trim() || null
+            
             return {
                 amount: amount,
                 title: title,
                 content: content
             }
-        }
-        )
-        )
+        }))
 
        grants = grants.filter(grant => grant !== null)
 
