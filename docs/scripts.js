@@ -367,6 +367,8 @@ async function searchGrants() {
     console.log(inputValue)
 
     govGrantTitle.filter((grant) => {
+        console.log(grant)
+
         let modifiedTitle = grant.title.toLowerCase()
         let modifiedAgency = grant.agency.toLowerCase()
 
@@ -425,7 +427,7 @@ async function searchGrants() {
             let url = document.createElement("li")
             url.innerHTML = `<label>Grant URL: </label><a href=${grant.url} target="_blank">${grant.url}</a>`
             let date = document.createElement("li")
-            date.innerHTML = `<span>${grant.date}</span>`
+            date.innerHTML = `<span>${grant.content.slice(0, 21)}</span>`
 
             listFundNgosGrants.append(title, url, date)
             listGrants.appendChild(listFundNgosGrants)
