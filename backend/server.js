@@ -306,9 +306,9 @@ app.get('/api/trustafrica', async (req, res) => {
 
 
                 return {
-                    amount: amount.textContent.trim(),
+                    amount: amount ? amount.textContent.trim() : null,
                     title: title ? title.textContent.trim(): null,
-                    content: titleCon.textContent.trim()
+                    content: titleCon ? titleCon.textContent.trim(): null
                 }
             }
             )
