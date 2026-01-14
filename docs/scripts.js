@@ -315,6 +315,8 @@ openAfricaButton.addEventListener("click", async () => {
                     openAfricaTitle.innerHTML = `<label>Grant Title: </label> ${grant.title}`
                     let openAfricaDate = document.createElement("li")
                     openAfricaDate.innerHTML = `<label>Published Date : </label> ${grantDate}`
+
+
                     let openAfricaLink = document.createElement("li")
                     openAfricaLink.innerHTML = `<label>Grant URL: </label><a href=${grant.url} target="_blank">${grant.url}</a>`
                     let ul = document.createElement("ul")
@@ -383,6 +385,8 @@ trustAfricaButton.addEventListener("click", async () => {
             localStorage.setItem("trustAfrica", JSON.stringify(trustAfricaArr))
         
             ul.append(trustAfricaTitle, trustAfricaContent, trustAfricaAmount)
+            
+            listGrants.appendChild(ul)
         })
 }catch(error){
     console.log('Error', error)
