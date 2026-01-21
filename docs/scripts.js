@@ -345,7 +345,6 @@ openAfricaButton.addEventListener("click", async () => {
 
                 openAfricaArr.push(openAfricaObj)
 
-                localStorage.clear()
 
                 localStorage.setItem("openAfricaAid", JSON.stringify(openAfricaArr))
 
