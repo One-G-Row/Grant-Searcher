@@ -277,6 +277,7 @@ app.get('/api/trustafrica', async (req, res) => {
     try {
         const browser = await puppeteer.launch({
             headless: 'new',
+            protocolTimeout: 240000,
             args: [
                 '--no-sandbox',
                 '--disable-setuid-sandbox',
@@ -287,13 +288,19 @@ app.get('/api/trustafrica', async (req, res) => {
             ]
         })
         const page = await browser.newPage()
+                // Set a reasonable page timeout
+        page.setDefaultTimeout(200000) // 200 seconds
+
         await page.goto(
             'https://trustafrica.org/fluxx-grants/',
-            { timeout: 80000 }
+            { 
+                timeout: 80000,
+                waitUntil: 'networkidle2' // Wait for network to be mostly idle
+             }
         )
 
         await page.waitForSelector("#flux_table", {
-            timeout: 800000
+            timeout: 180000
         })
 
         let grants = await page.$$eval("#flux_table tbody tr", rows => rows.map(row => {
