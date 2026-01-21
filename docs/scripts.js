@@ -684,14 +684,19 @@ async function searchGrants() {
         console.log(typeof (grant.title))
 
         let modifiedTaTitle = null
+        let modifiedTaContent = null
 
         if (grant.title !== null) {
             modifiedTaTitle = grant.title.toLowerCase()
         }
 
+        if(grant.content !== null){
+            modifiedTaContent = grant.content.toLowerCase()
+        }
+
         let year = grant.year
 
-        if (modifiedTaTitle.includes(inputValue) || year.includes(inputValue) || grant.content.includes(inputValue)) {
+        if (modifiedTaTitle.includes(inputValue) || year.includes(inputValue) || modifiedTaContent.includes(inputValue)) {
             let grantCard = document.createElement("div")
             grantCard.setAttribute("class", "grant-card")
 
