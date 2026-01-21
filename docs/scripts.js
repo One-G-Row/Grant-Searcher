@@ -2,7 +2,7 @@ const listGrants = document.querySelector(".list-grants")
 console.log(listGrants)
 
 const API_URL = "https://grant-searcher-backend.onrender.com/api" || "http://127.0.0.1:3000/api"
-//const API_URL = "http://127.0.0.1:3000/api"
+// const API_URL = "http://127.0.0.1:3000/api"
 
 //get grants button to trigger listing grants
 const grantsGovButton = document.querySelector(".gov-grants-button")
@@ -118,9 +118,6 @@ const fundsForNgosButton = document.querySelector('.funds-for-ngos-button')
 fundsForNgosButton.addEventListener("click", async () => {
     listGrants.innerHTML = ""
 
-    let grantCard = document.createElement("div")
-    grantCard.setAttribute("class", "grant-card")
-
     const response = await fetch(`${API_URL}/funds-for-ngos`)
 
     if (!response.ok) {
@@ -138,6 +135,9 @@ fundsForNgosButton.addEventListener("click", async () => {
     let fundsNgosArr = []
 
     data.forEach((grant) => {
+        let grantCard = document.createElement("div")
+        grantCard.setAttribute("class", "grant-card")
+
         let fundsTitle = document.createElement("li")
         fundsTitle.innerHTML = `<label><b>Grant Title:</b> </label>${grant.title}`
         let fundsUrl = document.createElement("li")
@@ -172,9 +172,6 @@ const africanNgosButton = document.querySelector('.african-ngos-button')
 africanNgosButton.addEventListener("click", async () => {
     listGrants.innerHTML = ""
 
-    let grantCard = document.createElement("div")
-    grantCard.setAttribute("class", "grant-card")
-
     const response = await fetch(`${API_URL}/africanngos`)
 
     if (!response.ok) {
@@ -188,6 +185,9 @@ africanNgosButton.addEventListener("click", async () => {
     let africanNgosArr = []
 
     data.forEach((grant) => {
+        let grantCard = document.createElement("div")
+        grantCard.setAttribute("class", "grant-card")
+
         let africanNgoTitle = document.createElement("li")
         let africanNgoUrl = document.createElement("li")
         let africanNgoContent = document.createElement("div")
@@ -217,6 +217,7 @@ africanNgosButton.addEventListener("click", async () => {
 
         ul.append(africanNgoTitle, africanNgoUrl, africanNgoContent)
         grantCard.appendChild(ul)
+
         listGrants.appendChild(grantCard)
     })
 
@@ -242,6 +243,9 @@ instrumentlButton.addEventListener("click", async () => {
         const instrumenlArr = []
 
         data.forEach((grant) => {
+            let grantCard = document.createElement("div")
+            grantCard.setAttribute("class", "grant-card")
+
             let instrumenlTitle = document.createElement("li")
             instrumenlTitle.innerHTML = `<label><b>Grant Title:</b> </label> ${grant.title}`
             let instrumenlContent = document.createElement("p")
@@ -250,9 +254,9 @@ instrumentlButton.addEventListener("click", async () => {
             instrumenlLink.innerHTML = `<label><b>Grant URL:</b> </label><a href=${grant.url} target="_blank">${grant.url}</a>`
             let instrumenlDate = document.createElement("li")
 
-            let grantDeadline = grant.deadline === null ? "Rolling Deadline" : `${grant.deadline}` 
+            let grantDeadline = grant.deadline === null ? "Rolling Deadline" : `${grant.deadline}`
             instrumenlDate.innerHTML = `<label><b>Deadline:</b> </label><span>${grantDeadline}</span>`
-            
+
             let ul = document.createElement("ul")
 
             let instrumenlObj = {
@@ -267,7 +271,8 @@ instrumentlButton.addEventListener("click", async () => {
 
             if (grant.url !== null && grant.title !== null) {
                 ul.append(instrumenlTitle, instrumenlLink, instrumenlDate)
-                listGrants.appendChild(ul)
+                grantCard.appendChild(ul)
+                listGrants.appendChild(grantCard)
             }
 
         })
@@ -299,45 +304,49 @@ openAfricaButton.addEventListener("click", async () => {
         let openAfricaArr = []
 
         data.forEach((grant) => {
+            let grantCard = document.createElement("div")
+            grantCard.setAttribute("class", "grant-card")
+
             //date.forEach((d) => {
-                let grantDate = grant.date
-                console.log(grantDate)
+            let grantDate = grant.date
+            console.log(grantDate)
 
-                //get the current date
-                let currentDate = new Date()
-                let currentYear = currentDate.getFullYear()
-                let lastYear = currentYear - 11
-                console.log(currentYear)
-                console.log(lastYear)
+            //get the current date
+            let currentDate = new Date()
+            let currentYear = currentDate.getFullYear()
+            let lastYear = currentYear - 11
+            console.log(currentYear)
+            console.log(lastYear)
 
-                if (grantDate.includes(lastYear) || grantDate.includes(currentYear)) {
-                    let openAfricaTitle = document.createElement("li")
-                    openAfricaTitle.innerHTML = `<label>Grant Title: </label> ${grant.title}`
-                    let openAfricaDate = document.createElement("li")
-                    openAfricaDate.innerHTML = `<label>Published Date : </label> ${grantDate}`
-
-
-                    let openAfricaLink = document.createElement("li")
-                    openAfricaLink.innerHTML = `<label>Grant URL: </label><a href=${grant.url} target="_blank">${grant.url}</a>`
-                    let ul = document.createElement("ul")
+            if (grantDate.includes(lastYear) || grantDate.includes(currentYear)) {
+                let openAfricaTitle = document.createElement("li")
+                openAfricaTitle.innerHTML = `<label>Grant Title: </label> ${grant.title}`
+                let openAfricaDate = document.createElement("li")
+                openAfricaDate.innerHTML = `<label>Published Date : </label> ${grantDate}`
 
 
-                    let openAfricaObj = {
-                        title: grant.title,
-                        date: grantDate,
-                        url: grant.url
-                    }
+                let openAfricaLink = document.createElement("li")
+                openAfricaLink.innerHTML = `<label>Grant URL: </label><a href=${grant.url} target="_blank">${grant.url}</a>`
+                let ul = document.createElement("ul")
 
-                    openAfricaArr.push(openAfricaObj)
 
-                    localStorage.clear()
-
-                    localStorage.setItem("openAfricaAid", JSON.stringify(openAfricaArr))
-
-                    ul.append(openAfricaTitle, openAfricaDate, openAfricaLink)
-
-                    listGrants.appendChild(ul)
+                let openAfricaObj = {
+                    title: grant.title,
+                    date: grantDate,
+                    url: grant.url
                 }
+
+                openAfricaArr.push(openAfricaObj)
+
+                localStorage.clear()
+
+                localStorage.setItem("openAfricaAid", JSON.stringify(openAfricaArr))
+
+                ul.append(openAfricaTitle, openAfricaDate, openAfricaLink)
+
+                grantCard.appendChild(ul)
+                listGrants.appendChild(grantCard)
+            }
             //})
         })
 
@@ -350,47 +359,76 @@ openAfricaButton.addEventListener("click", async () => {
 //Trust Africa Grants
 const trustAfricaButton = document.querySelector(".trust-africa-button")
 trustAfricaButton.addEventListener("click", async () => {
-    try{
-    const response = await fetch(`${API_URL}/trustafrica`)
+    try {
+        listGrants.innerHTML = ""
+        const response = await fetch(`${API_URL}/trustafrica`)
 
-    if(!response.ok){
-        console.log(`HTTP ERROR, ${response.status}`)
-    }
+        if (!response.ok) {
+            console.log(`HTTP ERROR, ${response.status}`)
+        }
 
-    const responseData = await response.json()
+        const responseData = await response.json()
 
-    const data = responseData.data
-    console.log(data)
+        const data = responseData.data
+        console.log(data)
 
-    let trustAfricaArr = []
+        let trustAfricaArr = []
 
-    data.forEach((grant) => {
-            let trustAfricaTitle = document.createElement("li")
-            trustAfricaTitle.innerHTML = `<label><b>Grant Title:</b> </label><h1>${grant.title}</h1>`
-            let trustAfricaContent = document.createElement("li")
-            trustAfricaContent.innerHTML = `<label><b>Grant Content:</b> </label><p>${grant.content}</p>`
-            let trustAfricaAmount = document.createElement("li")
-            trustAfricaAmount.innerHTML = `<label><b>Grant Amount:</b> </label><span>${grant.amount}</span>`
-            
-            let ul = document.createElement("ul")
+        data.forEach((grant) => {
+            let grantCard = document.createElement("div")
+            grantCard.setAttribute("class", "grant-card")
+
+            console.log(typeof (grant.amount))
+            if (grant.title !== null || grant.content !== null || grant.amount !== null) {
+                let ul = document.createElement("ul")
+
+                if (grant.title !== null) {
+                    let trustAfricaTitle = document.createElement("li")
+                    trustAfricaTitle.innerHTML = `<label><b>Grant Title:</b> </label><span>${grant.title}</span>`
+                    ul.appendChild(trustAfricaTitle)
+                }
+
+                if (grant.content !== null) {
+                    let trustAfricaContent = document.createElement("li")
+                    trustAfricaContent.innerHTML = `<label><b>Grant Content:</b> </label><p>${grant.content}</p>`
+                    ul.appendChild(trustAfricaContent)
+                }
+
+                if (grant.amount !== null) {
+                    let trustAfricaAmount = document.createElement("li")
+                    trustAfricaAmount.innerHTML = `<label><b>Grant Amount:</b> </label><span>${grant.amount}</span>`
+                    ul.appendChild(trustAfricaAmount)
+                }
+
+                if (grant.year !== null) {
+                    let trustAfricaYear = document.createElement("li")
+                    trustAfricaYear.innerHTML = `<label><b>Grant Year:</b> </label><span>${grant.year}</span>`
+                    ul.appendChild(trustAfricaYear)
+                }
+
+                grantCard.appendChild(ul)
+                listGrants.appendChild(grantCard)
+            }
+
+
 
             let trustAfricaObj = {
                 title: grant.title,
                 amount: grant.amount,
-                content: grant.content
+                content: grant.content,
+                year: grant.year
             }
 
             trustAfricaArr.push(trustAfricaObj)
 
+
+
             localStorage.setItem("trustAfrica", JSON.stringify(trustAfricaArr))
-        
-            ul.append(trustAfricaTitle, trustAfricaContent, trustAfricaAmount)
-            
-            listGrants.appendChild(ul)
+
         })
-}catch(error){
-    console.log('Error', error)
-}
+    } catch (error) {
+        console.log('Error', error)
+    }
 })
 
 //search grants based on title, location and category
@@ -424,6 +462,9 @@ async function searchGrants() {
         console.log(check)
 
         if (modifiedTitle.includes(inputValue) || modifiedAgency.includes(inputValue)) {
+            let grantCard = document.createElement("div")
+            grantCard.setAttribute("class", "grant-card")
+
             //let grantSection = document.createElement("div")
             let listGovGrants = document.createElement("ul")
             listGovGrants.setAttribute("class", "list-gov-grants")
@@ -437,12 +478,22 @@ async function searchGrants() {
             let agency = document.createElement("li")
             agency.innerHTML = `<label>Agency: </label>${grant.agency}`
             listGovGrants.append(title, oDate, dDate, agency)
-            listGrants.appendChild(listGovGrants)
+
+            grantCard.appendChild(listGovGrants)
+            listGrants.appendChild(grantCard)
 
             //change status of grants Found to true to display message if no grants are found
             grantsFound = true
         }
 
+            //if no grants are found display message that no grants are found
+        if (grantsFound === false) {
+            listGrants.innerHTML = ""
+            let noGrant = document.createElement("p")
+            noGrant.setAttribute("class", "no-grant")
+            noGrant.textContent = "The search entry value is not present in the listed grants."
+            listGrants.appendChild(noGrant)
+        }
 
     })
 
@@ -471,6 +522,9 @@ async function searchGrants() {
         console.log(grant.date)
 
         if (modifiedFundsTitle.includes(inputValue)) {
+            let grantCard = document.createElement("div")
+            grantCard.setAttribute("class", "grant-card")
+
             let listFundNgosGrants = document.createElement("ul")
             listFundNgosGrants.setAttribute("class", "list-fund-ngos-grants")
             let title = document.createElement("li")
@@ -482,10 +536,21 @@ async function searchGrants() {
             date.innerHTML = `<span>${grant.date}</span>`
 
             listFundNgosGrants.append(title, url, date)
+            grantCard.appendChild(listFundNgosGrants)
+
             listGrants.appendChild(listFundNgosGrants)
 
             //change status of grants Found to true to display message if no grants are found
             grantsFound = true
+        }
+
+            //if no grants are found display message that no grants are found
+        if (grantsFound === false) {
+            listGrants.innerHTML = ""
+            let noGrant = document.createElement("p")
+            noGrant.setAttribute("class", "no-grant")
+            noGrant.textContent = "The search entry value is not present in the listed grants."
+            listGrants.appendChild(noGrant)
         }
 
 
@@ -520,6 +585,9 @@ async function searchGrants() {
         /* modifiedAfricanNgoTitle.toString().toLowerCase() */
 
         if (modifiedAfricanNgoTitle !== null && modifiedAfricanNgoTitle.includes(inputValue)) {
+            let grantCard = document.createElement("div")
+            grantCard.setAttribute("class", "grant-card")
+
             let listAfricanNgosGrants = document.createElement("ul")
             listAfricanNgosGrants.setAttribute("class", "list-fund-ngos-grants")
             let title = document.createElement("li")
@@ -531,10 +599,21 @@ async function searchGrants() {
             content.innerHTML = `<p style="white-space: pre-line">${grant.content}</p>`
 
             listAfricanNgosGrants.append(title, url, content)
-            listGrants.appendChild(listAfricanNgosGrants)
+            grantCard.appendChild(listAfricanNgosGrants)
+
+            listGrants.appendChild(grantCard)
 
             //change status of grants Found to true to display message if no grants are found
             grantsFound = true
+        }
+
+            //if no grants are found display message that no grants are found
+        if (grantsFound === false) {
+            listGrants.innerHTML = ""
+            let noGrant = document.createElement("p")
+            noGrant.setAttribute("class", "no-grant")
+            noGrant.textContent = "The search entry value is not present in the listed grants."
+            listGrants.appendChild(noGrant)
         }
     })
 
@@ -548,6 +627,9 @@ async function searchGrants() {
     }
 
     instrumentlGrantArr.filter((grant) => {
+        let grantCard = document.createElement("div")
+        grantCard.setAttribute("class", "grant-card")
+
         let modifiedInstrumentlTitle = grant.title.toLowerCase()
         let year = grant.deadline.slice(8, 12)
 
@@ -561,17 +643,93 @@ async function searchGrants() {
             url.innerHTML = `<label>Grant URL: </label><a href=${grant.url} target="_blank">${grant.url}</a>`
             let deadline = document.createElement("li")
             deadline.innerHTML = `<label>Grant Deadline: </label><span>${grant.deadline}</span>`
-            
+
             listInstrumentlGrants.append(title, url, deadline)
+            grantCard.appendChild(listInstrumentlGrants)
+
             listGrants.appendChild(listInstrumentlGrants)
 
             //change status of grants Found to true to display message if no grants are found
             grantsFound = true
         }
 
+            //if no grants are found display message that no grants are found
+        if (grantsFound === false) {
+            listGrants.innerHTML = ""
+            let noGrant = document.createElement("p")
+            noGrant.setAttribute("class", "no-grant")
+            noGrant.textContent = "The search entry value is not present in the listed grants."
+            listGrants.appendChild(noGrant)
+        }
     })
 
-    //console.log(instrumentlGrantArr)
+
+    //search for instrumentl grants
+    let trustAfricaGrants = JSON.parse(localStorage.getItem("trustAfrica"))
+
+    let trustAfricaArr = []
+
+    for (let grant of trustAfricaGrants) {
+        trustAfricaArr.push(grant)
+    }
+
+    trustAfricaArr.filter((grant) => {
+        console.log(grant.title)
+        console.log(typeof (grant.title))
+
+        let modifiedTaTitle = null
+
+        if (grant.title !== null) {
+            modifiedTaTitle = grant.title.toLowerCase()
+        }
+
+        let year = grant.year
+
+        if (modifiedTaTitle.includes(inputValue) || year.includes(inputValue)) {
+            let grantCard = document.createElement("div")
+            grantCard.setAttribute("class", "grant-card")
+
+            let listTaGrants = document.createElement("ul")
+
+            if (grant.title !== null) {
+            listTaGrants.setAttribute("class", "trust-africa-grants")
+            let title = document.createElement("li")
+            title.setAttribute("class", "title")
+            title.innerHTML = `<label>Grant Title: </label>${grant.title}`
+            listTaGrants.appendChild(title)
+            }
+
+            if (grant.content !== null) {
+            let content = document.createElement("li")
+            content.innerHTML = `<label>Grant Content: </label><span>${grant.content}</span>`
+            listTaGrants.appendChild(content)
+            }
+
+            if (grant.year !== null) {
+            let year = document.createElement("li")
+            year.innerHTML = `<label>Grant Year: </label><span>${grant.year}</span>`
+            listTaGrants.appendChild(year)
+            }
+
+            grantCard.appendChild(listTaGrants)
+
+            listGrants.appendChild(grantCard)
+
+            //change status of grants Found to true to display message if no grants are found
+            grantsFound = true
+        }
+
+        //if no grants are found display message that no grants are found
+        if (grantsFound === false) {
+            listGrants.innerHTML = ""
+            let noGrant = document.createElement("p")
+            noGrant.setAttribute("class", "no-grant")
+            noGrant.textContent = "The search entry value is not present in the listed grants."
+            listGrants.appendChild(noGrant)
+        }
+    })
+
+    console.log(trustAfricaArr)
 
     //search for open Africa grants
     let openAfricaGrants = JSON.parse(localStorage.getItem("openAfricaAid"))
@@ -604,6 +762,8 @@ async function searchGrants() {
             //change status of grants Found to true to display message if no grants are found
             grantsFound = true
         }
+
+
 
         //if no grants are found display message that no grants are found
         if (grantsFound === false) {

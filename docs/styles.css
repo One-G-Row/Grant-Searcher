@@ -10,7 +10,9 @@ text-align: center;
 .grant-card{
     width: 70vw;
     height: auto; 
-    margin: auto;
+    margin: 0.5rem auto;
+    padding: 0.5rem 1rem;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
 }
 
 .title-container, .opendate-container, .closedate-container, .agency-container{
@@ -19,7 +21,7 @@ text-align: center;
 
 .grant-ul{
     list-style-type: none;
-    box-shadow: 1px 10px 8px #888888;
+    /* box-shadow: 1px 10px 8px #888888; */
     margin: 1rem;
     padding: 1rem;
 }
@@ -45,7 +47,7 @@ button{
 }
 
 /* center the buttons and search section */
-.buttons-section, .search-section{
+.search-section{
     margin: 1rem 20rem;
 }
 
@@ -82,15 +84,21 @@ button{
 } */
 
 .list-grants{
-    margin: 2rem 18rem;
+    margin: 2rem 14rem;
 }
 
 .title{
     font-weight: bold;
 }
 
+.buttons-section{
+        margin: 1rem 18rem;
+
+}
+
 .buttons-section button{
     background-color: #fff;
+
 }
 
 .buttons-section button:hover{

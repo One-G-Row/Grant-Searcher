@@ -298,28 +298,43 @@ app.get('/api/trustafrica', async (req, res) => {
 
         let grants = await page.$$eval("#flux_table tbody tr", rows => rows.map(row => {
             const tds = row.querySelectorAll("td")
+            console.log(tds)
 
-            if (tds.length === 0) return null
+            // if (tds.length < 4 || row.querySelector('.expandChildTable')){
+            //     return null
+            // } 
 
-            const amount = tds[1]?.textContent.trim() || null
+            const amount = tds[1]?.textContent.trim()
 
-            const titleContainer = tds[0]
+            const titleContainer = tds[2]
             const title =
-                titleContainer?.querySelector("b")?.textContent.trim() || null
+                titleContainer?.querySelector('b')?.textContent.trim()
 
             const content =
-                titleContainer?.textContent.trim() || null
-            
+                titleContainer?.querySelector('p:not(:has(b))')?.textContent.trim()
+
+            const year = tds[3]?.textContent.trim()
+
+            // Only return if we have actual data (title should exist)
+            // if (!title || title === "Programme: Equitable") {
+            //     return null
+            // }
+
             return {
-                amount: amount,
+                amount: amount || null,
                 title: title,
-                content: content
+                content: content || null,
+                year: year || null
             }
         }))
 
-       grants = grants.filter(grant => grant !== null)
-
-       await browser.close()
+        // Filter out completely null objects
+        grants = grants.filter(grant =>
+            grant !== null &&
+            (grant.amount || grant.title || grant.content || grant.year)
+        )
+        console.log(grants)
+        await browser.close()
         res.json({
             success: true,
             data: grants,
