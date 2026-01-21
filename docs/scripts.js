@@ -200,8 +200,10 @@ africanNgosButton.addEventListener("click", async () => {
 
         let title = []
 
-        if (grant.title !== null && grant.url !== null && grant.content !== null) {
+        if (title !== null && grant.url !== null && grant.content !== null) {
             title.push(grant.title)
+            console.log(title)
+            
             africanNgoTitle.innerHTML = `<label><b>Grant Title:</b> </label> ${title}`
             africanNgoUrl.innerHTML = `<label><b>Grant URL:</b> </label><a href=${grant.url} target="_blank">${grant.url}</a>`
             africanNgoContent.innerHTML = `<p style="white-space: pre-line">${grant.content}</p><br>`
