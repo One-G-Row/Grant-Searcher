@@ -683,8 +683,8 @@ async function searchGrants() {
         console.log(grant.title)
         console.log(typeof (grant.title))
 
-        let modifiedTaTitle = null
-        let modifiedTaContent = null
+        let modifiedTaTitle = ""
+        let modifiedTaContent = ""
 
         if (grant.title !== null) {
             modifiedTaTitle = grant.title.toLowerCase()
