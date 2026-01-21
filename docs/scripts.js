@@ -691,7 +691,7 @@ async function searchGrants() {
 
         let year = grant.year
 
-        if (modifiedTaTitle.includes(inputValue) || year.includes(inputValue)) {
+        if (modifiedTaTitle.includes(inputValue) || year.includes(inputValue) || grant.content.includes(inputValue)) {
             let grantCard = document.createElement("div")
             grantCard.setAttribute("class", "grant-card")
 
