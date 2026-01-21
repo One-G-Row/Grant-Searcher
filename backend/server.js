@@ -289,11 +289,11 @@ app.get('/api/trustafrica', async (req, res) => {
         const page = await browser.newPage()
         await page.goto(
             'https://trustafrica.org/fluxx-grants/',
-            { timeout: 60000 }
+            { timeout: 80000 }
         )
 
         await page.waitForSelector("#flux_table", {
-            timeout: 100000
+            timeout: 800000
         })
 
         let grants = await page.$$eval("#flux_table tbody tr", rows => rows.map(row => {
