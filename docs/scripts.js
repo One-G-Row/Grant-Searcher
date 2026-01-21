@@ -200,12 +200,12 @@ africanNgosButton.addEventListener("click", async () => {
 
         let title = []
 
-        if (grant.title !== null || grant.url !== null) {
+        if (grant.title !== null && grant.url !== null && grant.content !== null) {
             title.push(grant.title)
             africanNgoTitle.innerHTML = `<label><b>Grant Title:</b> </label> ${title}`
             africanNgoUrl.innerHTML = `<label><b>Grant URL:</b> </label><a href=${grant.url} target="_blank">${grant.url}</a>`
             africanNgoContent.innerHTML = `<p style="white-space: pre-line">${grant.content}</p><br>`
-        }
+        
 
         let ul = document.createElement("ul")
 
@@ -223,6 +223,7 @@ africanNgosButton.addEventListener("click", async () => {
         grantCard.appendChild(ul)
 
         listGrants.appendChild(grantCard)
+    }
     })
 
     console.log(data)
