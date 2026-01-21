@@ -445,7 +445,7 @@ async function searchGrants() {
 
     //gov grants search
     let govGrants = JSON.parse(localStorage.getItem("grantsGov"))
-    //let govGrants = await fetch(`${API_URL}/`)
+    //let govGrants = await fetch(`${API_URL}/grants/search`)
     console.log(govGrants)
 
     let govGrantTitle = []
