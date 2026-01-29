@@ -7,12 +7,17 @@ font-size: 24pt;
 text-align: center;
 }
 
-.grant-card{
+.grant-card, .event-card{
     width: 70vw;
     height: auto; 
     margin: 0.5rem auto;
     padding: 0.5rem 1rem;
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
+}
+
+.event-card{
+    width: 60vw;
+    margin: 0.5rem auto;
 }
 
 .title-container, .opendate-container, .closedate-container, .agency-container{
@@ -54,27 +59,41 @@ button{
 /* style search input field */
 .search-input{
     width: 40vw;
-    height: 2vw;
-    border: 1px solid #000;
+    border: 1px solid #adacac;
     border-radius: 12px;
-    padding: 0.5rem 2rem;
+    padding: 1rem 2rem;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* style search button */
-.search-button{
+.search-button, .search-button-events{
     position: absolute;
-    top: 14vh;
-    left: 64vw;
+    top: 15vh;
+    left: 52vw;
     height: 30px;
     padding: 10px;
     border: none;
     border-radius: 50px;
     background-color: #fff;
+    border: 1px solid gray;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     /* color: #fff; */
     font-size: 12pt;
     /* background-color: #fff; */
     cursor: pointer;
+}
+
+.search-button-events{
+position: absolute;
+top: 15vh;
+    left: 60vw;
+}
+
+.search-button:hover, .search-button-events:hover{
+    background-color: aliceblue;
 }
 
 /* .search-button:hover{
@@ -92,7 +111,7 @@ button{
 }
 
 .buttons-section{
-        margin: 1rem 18rem;
+        margin: 1rem 20rem;
 
 }
 
@@ -101,9 +120,16 @@ button{
 
 }
 
-.buttons-section button:hover{
+#select-grants, #select-events{
+padding: 10px 50px;
+border-radius: 5px;
+margin-right: 10px;
+}
+
+.option:hover{
     background-color: #000;
     color: #fff;
+    cursor: pointer;
 }
 
 .no-grant{

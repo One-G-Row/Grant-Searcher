@@ -1,8 +1,23 @@
+import { Paginator } from "https://unpkg.com/@carry0987/paginator/dist/paginator.esm.js"
+//import '../node_modules/@carry0987/paginator/theme/paginator.min.css';
+
 const listGrants = document.querySelector(".list-grants")
 console.log(listGrants)
 
-const API_URL = "https://grant-searcher-backend.onrender.com/api" || "http://127.0.0.1:3000/api"
-// const API_URL = "http://127.0.0.1:3000/api"
+//section to populate events
+const listEvents = document.querySelector(".list-events")
+
+//const API_URL = "https://grant-searcher-backend.onrender.com/api" || "http://127.0.0.1:3000/api"
+const API_URL = "http://127.0.0.1:3000/api"
+
+
+//get the option values selected in the select element box
+let selectedValue = ""
+
+const grants = document.querySelector("#select-grants")
+grants.addEventListener("change", () => {
+    selectedValue = grants.value
+
 
 //get grants button to trigger listing grants
 const grantsGovButton = document.querySelector(".gov-grants-button")
@@ -35,8 +50,10 @@ async function postGrants() {
     return responseData
 }
 
+console.log(selectedValue)
 
-grantsGovButton.addEventListener("click", async () => {
+async function populateGovGrants(){
+    if(selectedValue === "grantsgov"){
     listGrants.innerHTML = ""
 
     const responseData = await postGrants()
@@ -110,13 +127,17 @@ grantsGovButton.addEventListener("click", async () => {
     })
     //})
 
-})
+}
+}
+
 
 //render scraped funds for ngos grants
 const fundsForNgosButton = document.querySelector('.funds-for-ngos-button')
 
-fundsForNgosButton.addEventListener("click", async () => {
-    listGrants.innerHTML = ""
+async function populateFundsForNgos() {
+    //fundsForNgosButton.addEventListener("click", async () => {
+if (selectedValue === "fundsforngos"){
+      listGrants.innerHTML = ""
 
     const response = await fetch(`${API_URL}/funds-for-ngos`)
 
@@ -168,12 +189,19 @@ fundsForNgosButton.addEventListener("click", async () => {
 
     console.log(data)
     return data
-})
+}
+}
+
+
+  
 
 ///api/africanngos
 //african-ngos-button
 const africanNgosButton = document.querySelector('.african-ngos-button')
-africanNgosButton.addEventListener("click", async () => {
+
+//africanNgosButton.addEventListener("click", async () => {
+async function populateAfricanNgos() {
+if(selectedValue === "africanngos"){
     listGrants.innerHTML = ""
 
     const response = await fetch(`${API_URL}/africanngos`)
@@ -203,38 +231,45 @@ africanNgosButton.addEventListener("click", async () => {
         if (title !== null && grant.url !== null && grant.content !== null) {
             title.push(grant.title)
             console.log(title)
-            
+
             africanNgoTitle.innerHTML = `<label><b>Grant Title:</b> </label> ${title}`
             africanNgoUrl.innerHTML = `<label><b>Grant URL:</b> </label><a href=${grant.url} target="_blank">${grant.url}</a>`
             africanNgoContent.innerHTML = `<p style="white-space: pre-line">${grant.content}</p><br>`
-        
 
-        let ul = document.createElement("ul")
 
-        let africanNgosObj = {
-            title: grant.title,
-            url: grant.url,
-            content: grant.content
+            let ul = document.createElement("ul")
+
+            let africanNgosObj = {
+                title: grant.title,
+                url: grant.url,
+                content: grant.content
+            }
+
+            africanNgosArr.push(africanNgosObj)
+
+            localStorage.setItem("africanNgos", JSON.stringify(africanNgosArr))
+
+            ul.append(africanNgoTitle, africanNgoUrl, africanNgoContent)
+            grantCard.appendChild(ul)
+
+            listGrants.appendChild(grantCard)
         }
-
-        africanNgosArr.push(africanNgosObj)
-
-        localStorage.setItem("africanNgos", JSON.stringify(africanNgosArr))
-
-        ul.append(africanNgoTitle, africanNgoUrl, africanNgoContent)
-        grantCard.appendChild(ul)
-
-        listGrants.appendChild(grantCard)
-    }
     })
 
     console.log(data)
     return data
-})
+
+    }
+}
+    
+    
 
 //instrumenl grants
 let instrumentlButton = document.querySelector(".instrumentl-button")
-instrumentlButton.addEventListener("click", async () => {
+//instrumentlButton.addEventListener("click", async () => {
+
+async function populateInstrumentl() {
+if(selectedValue === "instrumentl"){
     try {
         listGrants.innerHTML = ""
         const response = await fetch(`${API_URL}/instrumentl`)
@@ -287,11 +322,15 @@ instrumentlButton.addEventListener("click", async () => {
     } catch (error) {
         console.log('Error', error)
     }
-})
+}
+}
 
 //open africa grants
 let openAfricaButton = document.querySelector(".open-africa-button")
-openAfricaButton.addEventListener("click", async () => {
+//openAfricaButton.addEventListener("click", async () => {
+
+async function populateOpenAfrica() {
+if(selectedValue === "openafrica"){
     try {
         listGrants.innerHTML = ""
         const response = await fetch(`${API_URL}/openafrica`)
@@ -360,11 +399,15 @@ openAfricaButton.addEventListener("click", async () => {
     } catch (error) {
         console.log('Error', error)
     }
-})
+}
+}
 
 //Trust Africa Grants
 const trustAfricaButton = document.querySelector(".trust-africa-button")
-trustAfricaButton.addEventListener("click", async () => {
+//trustAfricaButton.addEventListener("click", async () => {
+
+async function populateTrustAfrica(){
+    if(selectedValue === "trustafrica"){
     try {
         listGrants.innerHTML = ""
         const response = await fetch(`${API_URL}/trustafrica`)
@@ -435,16 +478,47 @@ trustAfricaButton.addEventListener("click", async () => {
     } catch (error) {
         console.log('Error', error)
     }
+}
+}
+
+populateGovGrants()
+populateFundsForNgos()
+populateAfricanNgos()
+populateInstrumentl()
+populateOpenAfrica()
+populateTrustAfrica()
+
 })
+
+//gov grants search
+let govGrants = JSON.parse(localStorage.getItem("grantsGov"))
+
+//search for funds for ngos
+let fundsForNgos = JSON.parse(localStorage.getItem("fundsForNgos"))
+
+//search for african ngos
+let africanNgos = JSON.parse(localStorage.getItem("africanNgos"))
+
+//search for instrumentl grants
+let instrumentlGrants = JSON.parse(localStorage.getItem("instrumentl"))
+
+
+//search for instrumentl grants
+let trustAfricaGrants = JSON.parse(localStorage.getItem("trustAfrica"))
+
+//search for open Africa grants
+let openAfricaGrants = JSON.parse(localStorage.getItem("openAfricaAid"))
+
 
 //search grants based on title, location and category
 async function searchGrants() {
+
     listGrants.innerHTML = ""
+    listEvents.innerHTML = ""
 
     let grantsFound = false
 
-    //gov grants search
-    let govGrants = JSON.parse(localStorage.getItem("grantsGov"))
+
     //let govGrants = await fetch(`${API_URL}/grants/search`)
     console.log(govGrants)
 
@@ -493,7 +567,7 @@ async function searchGrants() {
         }
 
         //if no grants are found display message that no grants are found
-        if (grantsFound === false) {
+        if (grantsFound === false ) {
             listGrants.innerHTML = ""
             let noGrant = document.createElement("p")
             noGrant.setAttribute("class", "no-grant")
@@ -503,8 +577,7 @@ async function searchGrants() {
 
     })
 
-    //search for funds for ngos
-    let fundsForNgos = JSON.parse(localStorage.getItem("fundsForNgos"))
+
     // let response = await fetch(`${API_URL}/funds-for-ngos`)
 
     // if (!response.ok) {
@@ -544,7 +617,7 @@ async function searchGrants() {
             listFundNgosGrants.append(title, url, date)
             grantCard.appendChild(listFundNgosGrants)
 
-            listGrants.appendChild(listFundNgosGrants)
+            listGrants.appendChild(grantCard)
 
             //change status of grants Found to true to display message if no grants are found
             grantsFound = true
@@ -562,8 +635,7 @@ async function searchGrants() {
 
     })
 
-    //search for african ngos
-    let africanNgos = JSON.parse(localStorage.getItem("africanNgos"))
+
     //console.log(africanNgos)
 
     let africanNgosTitle = []
@@ -623,8 +695,6 @@ async function searchGrants() {
         }
     })
 
-    //search for instrumentl grants
-    let instrumentlGrants = JSON.parse(localStorage.getItem("instrumentl"))
 
     let instrumentlGrantArr = []
 
@@ -670,9 +740,6 @@ async function searchGrants() {
     })
 
 
-    //search for instrumentl grants
-    let trustAfricaGrants = JSON.parse(localStorage.getItem("trustAfrica"))
-
     let trustAfricaArr = []
 
     for (let grant of trustAfricaGrants) {
@@ -690,13 +757,12 @@ async function searchGrants() {
             modifiedTaTitle = grant.title.toLowerCase()
         }
 
-        if(grant.content !== null){
+        if (grant.content !== null) {
             modifiedTaContent = grant.content.toLowerCase()
         }
 
-        let year = grant.year
-
-        if (modifiedTaTitle.includes(inputValue) || year.includes(inputValue) || modifiedTaContent.includes(inputValue)) {
+        if(grant.year !== null){
+            if (modifiedTaTitle.includes(inputValue) || modifiedTaContent.includes(inputValue) || grant.year.includes(inputValue)) {
             let grantCard = document.createElement("div")
             grantCard.setAttribute("class", "grant-card")
 
@@ -730,6 +796,9 @@ async function searchGrants() {
             grantsFound = true
         }
 
+        }
+
+        
         //if no grants are found display message that no grants are found
         if (grantsFound === false) {
             listGrants.innerHTML = ""
@@ -742,8 +811,6 @@ async function searchGrants() {
 
     console.log(trustAfricaArr)
 
-    //search for open Africa grants
-    let openAfricaGrants = JSON.parse(localStorage.getItem("openAfricaAid"))
 
     let openAfricaTitle = []
 
@@ -785,9 +852,185 @@ async function searchGrants() {
             listGrants.appendChild(noGrant)
         }
     })
+    console.log(grantsFound)
 }
 
+//populate listGrants with all grants if listGrants is empty
 let searchInput = document.querySelector(".search-input")
+
+function populatePage(){
+//if (searchInput.value === "" || searchInput.value.length === 0) {
+
+
+if (govGrants) {
+    govGrants.forEach((grant) => {
+
+        let grantCard = document.createElement("div")
+        grantCard.setAttribute("class", "grant-card")
+
+        //let grantSection = document.createElement("div")
+        let listGovGrants = document.createElement("ul")
+        listGovGrants.setAttribute("class", "list-gov-grants")
+        let title = document.createElement("li")
+        title.setAttribute("class", "title")
+        title.innerHTML = `<label>Grant Title: </label>${grant.title}`
+        let oDate = document.createElement("li")
+        oDate.innerHTML = `<label>Open Date: </label>${grant.openData}`
+        let dDate = document.createElement("li")
+        dDate.innerHTML = `<label>Close Date: </label>${grant.closeDate}`
+        let agency = document.createElement("li")
+        agency.innerHTML = `<label>Agency: </label>${grant.agency}`
+        listGovGrants.append(title, oDate, dDate, agency)
+
+        grantCard.appendChild(listGovGrants)
+        listGrants.appendChild(grantCard)
+    })
+
+}
+
+if (fundsForNgos) {
+    fundsForNgos.forEach((grant) => {
+        let grantCard = document.createElement("div")
+        grantCard.setAttribute("class", "grant-card")
+
+        let listFundNgosGrants = document.createElement("ul")
+        listFundNgosGrants.setAttribute("class", "list-fund-ngos-grants")
+        let title = document.createElement("li")
+        title.setAttribute("class", "title")
+        title.innerHTML = `<label>Grant Title: </label>${grant.title}`
+        let url = document.createElement("li")
+        url.innerHTML = `<label>Grant URL: </label><a href=${grant.url} target="_blank">${grant.url}</a>`
+        let date = document.createElement("li")
+        date.innerHTML = `<span>${grant.date}</span>`
+
+        listFundNgosGrants.append(title, url, date)
+        grantCard.appendChild(listFundNgosGrants)
+
+        listGrants.appendChild(grantCard)
+    })
+}
+
+    if (africanNgos) {
+        africanNgos.forEach((grant) => {
+            let grantCard = document.createElement("div")
+            grantCard.setAttribute("class", "grant-card")
+
+            let listAfricanNgosGrants = document.createElement("ul")
+            listAfricanNgosGrants.setAttribute("class", "list-fund-ngos-grants")
+
+            if (grant.title !== null && grant.url !== null && grant.content !== null) {
+                let title = document.createElement("li")
+                title.setAttribute("class", "title")
+                title.innerHTML = `<label>Grant Title: </label>${grant.title}`
+                let url = document.createElement("li")
+                url.innerHTML = `<label>Grant URL: </label><a href=${grant.url} target="_blank">${grant.url}</a>`
+                let content = document.createElement("div")
+                content.innerHTML = `<p style="white-space: pre-line">${grant.content}</p>`
+
+                listAfricanNgosGrants.append(title, url, content)
+                grantCard.appendChild(listAfricanNgosGrants)
+
+                listGrants.appendChild(grantCard)
+            }
+
+        })
+    }
+
+    if(instrumentlGrants){
+        instrumentlGrants.forEach((grant) => {
+            let grantCard = document.createElement("div")
+            grantCard.setAttribute("class", "grant-card")
+
+            let listInstrumentlGrants = document.createElement("ul")
+            listInstrumentlGrants.setAttribute("class", "instrumentl-grants")
+            let title = document.createElement("li")
+            title.setAttribute("class", "title")
+            title.innerHTML = `<label>Grant Title: </label>${grant.title}`
+            let url = document.createElement("li")
+            url.innerHTML = `<label>Grant URL: </label><a href=${grant.url} target="_blank">${grant.url}</a>`
+            let deadline = document.createElement("li")
+            deadline.innerHTML = `<label>Grant Deadline: </label><span>${grant.deadline}</span>`
+
+            listInstrumentlGrants.append(title, url, deadline)
+            grantCard.appendChild(listInstrumentlGrants)
+
+            listGrants.appendChild(listInstrumentlGrants)
+        })
+    }
+
+
+    if(trustAfricaGrants){
+        trustAfricaGrants.forEach((grant) => {
+            let grantCard = document.createElement("div")
+            grantCard.setAttribute("class", "grant-card")
+
+            let listTaGrants = document.createElement("ul")
+
+            if (grant.title !== null) {
+                listTaGrants.setAttribute("class", "trust-africa-grants")
+                let title = document.createElement("li")
+                title.setAttribute("class", "title")
+                title.innerHTML = `<label>Grant Title: </label>${grant.title}`
+                listTaGrants.appendChild(title)
+            }
+
+            if (grant.content !== null) {
+                let content = document.createElement("li")
+                content.innerHTML = `<label>Grant Content: </label><span>${grant.content}</span>`
+                listTaGrants.appendChild(content)
+            }
+
+            if (grant.year !== null) {
+                let year = document.createElement("li")
+                year.innerHTML = `<label>Grant Year: </label><span>${grant.year}</span>`
+                listTaGrants.appendChild(year)
+            }
+
+            grantCard.appendChild(listTaGrants)
+
+            listGrants.appendChild(grantCard)
+        })  
+    }
+
+    if(openAfricaGrants){
+        openAfricaGrants.forEach((grant) => {
+            let grantCard = document.createElement("div")
+            grantCard.setAttribute("class", "grant-card")
+
+            let listopenAfricaGrants = document.createElement("ul")
+            listopenAfricaGrants.setAttribute("class", "list-development-aids-grants")
+            let title = document.createElement("li")
+            title.setAttribute("class", "title")
+            title.innerHTML = `<label>Grant Title: </label>${grant.title}`
+            let date = document.createElement("li")
+            date.innerHTML = `<label>Published Date: </label>${grant.date}`
+            let url = document.createElement("li")
+            url.innerHTML = `<label>Grant URL: </label><a href=${grant.url} target="_blank">${grant.url}</a>`
+            listopenAfricaGrants.append(title, url, date)
+
+            grantCard.appendChild(listopenAfricaGrants)
+            listGrants.appendChild(grantCard)
+        })
+    }
+}
+console.log(searchInput)
+//}
+populatePage()
+
+//create a paginated table 
+const paginator = new Paginator({
+    columns: ['Title', 'Agency', 'Url'],
+    data: `${govGrants}`,
+    dataRender: (response) => {
+        let dataHtml = '<ul>';
+        response.forEach((item, index) => {
+            dataHtml += '<li><span>' + item.join(' : ') + '</span></li>';
+        });
+        dataHtml += '</ul>';
+        document.querySelector('div.paginator').innerHTML = dataHtml;
+    }
+});
+console.log(paginator)
 
 let searchButton = document.querySelector(".search-button")
 searchButton.addEventListener("click", searchGrants)
@@ -804,7 +1047,7 @@ searchInput.addEventListener("keypress", (e) => {
 searchInput.addEventListener("input", () => {
     let search = searchInput.value
     if (search === "" || search.length === 0) {
-        listGrants.innerHTML = ""
+        window.location.reload()
     }
 })
 

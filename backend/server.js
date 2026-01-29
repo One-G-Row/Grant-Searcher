@@ -22,6 +22,7 @@ app.use((req, res, next) => {
     next()
 })
 
+//Grants Scraper Section
 app.get('/api/funds-for-ngos', async (req, res) => {
     try {
         const browser = await puppeteer.launch({
@@ -342,6 +343,69 @@ app.get('/api/trustafrica', async (req, res) => {
         )
         console.log(grants)
         await browser.close()
+        res.json({
+            success: true,
+            data: grants,
+        })
+    } catch (error) {
+        console.log('Scraping error:', error)
+        res.status(500).json({
+            success: false,
+            error: 'Failed to fetch data'
+        })
+    }
+
+})
+
+//Events Scraper Section
+app.get('/api/eventsbrite', async (req, res) => {
+    try {
+        const browser = await puppeteer.launch({
+            headless: 'new',
+            args: [
+                '--no-sandbox',
+                '--disable-setuid-sandbox',
+                '--disable-dev-shm-usage',
+                '--disable-gpu',
+                '--disable-software-rasterizer',
+                '--disable-dev-tools'
+            ]
+        })
+        const page = await browser.newPage()
+        await page.goto(
+            'https://www.eventbrite.com/d/kenya--nairobi/tech-events/',
+            { timeout: 80000 }
+        )
+
+        await page.waitForSelector("section.event-card-details", {
+            timeout: 60000
+        })
+
+
+        let grants = await page.$$eval("section.event-card-details", elements =>
+            elements.map(el => {
+                const cardContainer = el.querySelector("div.Stack_root__1ksk7")
+                const link = cardContainer ? cardContainer.querySelector("a.event-card-link") : null
+                const title = link ? link.querySelector("h3") : null
+                const date = cardContainer ? cardContainer.querySelector("p") : null
+                const priceContainer = cardContainer ? cardContainer.querySelector("div.DiscoverHorizontalEventCard-module__priceWrapper___3rOUY") : null
+                const price = priceContainer ? priceContainer.querySelector("p") : null
+
+                return {
+                    title: title ? title.textContent.trim() : null,
+                    url: link ? link.href : null,
+                    date: date? date.textContent : null,
+                    price: price ? price.textContent.trim() : null
+                }
+            }
+            )
+        )
+
+        grants.filter(grant => grant !== null)
+
+        console.log(grants)
+        browser.close()
+        
         res.json({
             success: true,
             data: grants,

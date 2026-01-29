@@ -5,17 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css" />
-    <title>Document</title>
+    <link rel="stylesheet" href="https://unpkg.com/@carry0987/paginator/dist/theme/paginator.min.css"/>
+    <title>Grants & Events Scraper</title>
 </head>
 
 <body>
     <main>
         <header>
-            <h1 class="header-title">Grants Searcher</h1>
+            <h1 class="header-title">Grants & Events Scraper</h1>
         </header>
         <section class="search-section">
             <input type="text" class="search-input" placeholder="Search Grants By Title, Agency and Year" />
             <button type="button" class="search-button">
+                 Grants
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="22" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </button>
+             <button type="button" class="search-button-events">
+                 Events
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="22" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="11" cy="11" r="8"></circle>
@@ -24,21 +34,47 @@
             </button>
         </section>
         <section class="buttons-section">
-            <button type="button" class="gov-grants-button">Grants.Gov</button>
+            <select id="select-grants">
+                <option value="grants" class="option">Grants</option>
+                <option value="grantsgov" class="gov-grants-button option">Grants.Gov</option>
+                <option value="fundsforngos" class="funds-for-ngos-button option">Funds for NGOs</option>
+                <option value="africanngos" class="african-ngos-button option">AfricanNGOs.org</option>
+                <option value="instrumentl" class="instrumentl-button option">Instrumentl</option>
+                <option value="openafrica" class="open-africa-button option">Open Africa</option>
+                <option value="trustafrica" class="trust-africa-button option">Trust Africa</option>
+            </select>
+            <select id="select-events">
+                 <option value="events" class="option">Events</option>
+                 <option value="eventsbrite" class="events-brite option">Events Brite</option>
+            </select>
+            <!-- <button type="button" class="gov-grants-button">Grants.Gov</button>
             <button type="button" class="funds-for-ngos-button">Funds for NGOs</button>
-            <!--  <button type="button" class="africa-grants-button">Africa-Grants.com</button> -->
             <button type="button" class="african-ngos-button">AfricanNGOs.org</button>
             <button type="button" class="instrumentl-button">Instrmentl</button> 
             <button type="button" class="open-africa-button">Open Africa</button> 
-            <button type="button" class="trust-africa-button">Trust Africa</button> 
+            <button type="button" class="trust-africa-button">Trust Africa</button>  -->
+             <!--  <button type="button" class="africa-grants-button">Africa-Grants.com</button> -->
         </section>
         <section class="grants-section">
             <div class="list-grants">
 
             </div>
+           
         </section> 
+         <section class="events-section">
+            <div class="list-events">
+
+            </div>
+           
+        </section> 
+        <div class="paginator">
+
+        </div>
     </main>
-    <script src="scripts.js"></script>
+    <!-- <script src="https://unpkg.com/@carry0987/paginator/dist/paginator.esm.js"></script> -->
+    <script src="grants.js" type="module"></script>
+    <script src="events.js" type="module"></script>
+
 </body>
 
 </html>
