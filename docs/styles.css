@@ -119,6 +119,12 @@ top: 15vh;
     font-weight: bold;
 }
 
+.loading-grant{
+    display: inline-flex;
+     margin: 1rem 25vw;
+    font-weight: bold;
+}
+
 .title{
     font-weight: bold;
 }
@@ -148,6 +154,18 @@ margin-right: 10px;
 .no-grant{
     font-weight: bold;
     text-align:  center;
+}
+
+
+@media(max-width: 840px){
+    .search-button, .search-button-events{
+        position: absolute;
+        top: 6rem;
+        left: 32rem;
+    }
+    .search-button-events{
+        margin-left: 7rem;
+    }
 }
 
 @media(max-width: 480px){
