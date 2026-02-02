@@ -289,15 +289,15 @@ app.get('/api/trustafrica', async (req, res) => {
             ]
         })
         const page = await browser.newPage()
-                // Set a reasonable page timeout
+        // Set a reasonable page timeout
         page.setDefaultTimeout(200000) // 200 seconds
 
         await page.goto(
             'https://trustafrica.org/fluxx-grants/',
-            { 
+            {
                 timeout: 80000,
                 waitUntil: 'networkidle2' // Wait for network to be mostly idle
-             }
+            }
         )
 
         await page.waitForSelector("#flux_table", {
@@ -467,7 +467,7 @@ app.get('/api/eventsbrite', async (req, res) => {
                 return {
                     title: title ? title.textContent.trim() : null,
                     url: link ? link.href : null,
-                    date: date? date.textContent : null,
+                    date: date ? date.textContent : null,
                     price: price ? price.textContent.trim() : null
                 }
             }
@@ -478,7 +478,7 @@ app.get('/api/eventsbrite', async (req, res) => {
 
         console.log(events)
         browser.close()
-        
+
         res.json({
             success: true,
             data: events,
@@ -522,13 +522,13 @@ app.get('/api/devevents', async (req, res) => {
             elements.map(el => {
                 const dateContainer = el.querySelector("div.column.is-one-quarter")
                 const date = dateContainer ? dateContainer.querySelector("time a") : null
-                const link = el.querySelector("h2.title a") 
+                const link = el.querySelector("h2.title a")
                 const content = el.querySelector("h3.subtitle")
 
                 return {
                     title: link ? link.textContent.trim() : null,
                     url: link ? link.href : null,
-                    date: date? date.textContent.trim() : null,
+                    date: date ? date.textContent.trim() : null,
                     content: content ? content.textContent.trim() : null
                 }
             }
@@ -539,7 +539,7 @@ app.get('/api/devevents', async (req, res) => {
 
         console.log(events)
         browser.close()
-        
+
         res.json({
             success: true,
             data: events,
@@ -581,15 +581,15 @@ app.get('/api/internationalconferences', async (req, res) => {
 
         let events = await page.$$eval("div.conf-list", elements =>
             elements.map(el => {
-                const link = el.querySelector("div.col-md-10 a") 
+                const link = el.querySelector("div.col-md-10 a")
                 const title = link ? link.querySelector("p.event-name") : null
-                const date = el.querySelector("p.listing-date") 
+                const date = el.querySelector("p.listing-date")
                 const location = el.querySelector("div.c-loc")
 
                 return {
                     title: title ? title.textContent.trim() : null,
                     url: link ? link.href : null,
-                    date: date? date.textContent.trim() : null,
+                    date: date ? date.textContent.trim() : null,
                     location: location ? location.textContent.trim() : null
                 }
             }
@@ -600,7 +600,7 @@ app.get('/api/internationalconferences', async (req, res) => {
 
         console.log(events)
         browser.close()
-        
+
         res.json({
             success: true,
             data: events,
@@ -643,15 +643,15 @@ app.get('/api/conferencealerts', async (req, res) => {
         let events = await page.$$eval("tr.data", elements =>
             elements.map(el => {
 
-                const header = el.querySelector("td.align-middle.p-lg-3.p-1 a") 
-                const date = el.querySelector("a p.location-name") 
+                const header = el.querySelector("td.align-middle.p-lg-3.p-1 a")
+                const date = el.querySelector("a p.location-name")
                 const location = el.querySelector("h4.location-name")
 
                 console.log(header)
                 return {
                     title: header ? header.title : null,
                     url: header ? header.href : null,
-                    date: date? date.textContent.trim() : null,
+                    date: date ? date.textContent.trim() : null,
                     location: location ? location.textContent.trim() : null
                 }
             }
@@ -662,7 +662,7 @@ app.get('/api/conferencealerts', async (req, res) => {
 
         console.log(events)
         browser.close()
-        
+
         res.json({
             success: true,
             data: events,
@@ -679,7 +679,7 @@ app.get('/api/conferencealerts', async (req, res) => {
 
 
 //10times Kenya
-app.get('/api/10times', async (req, res) => {
+app.get('/api/tentimes', async (req, res) => {
     try {
         const browser = await puppeteer.launch({
             headless: 'false',
@@ -700,44 +700,59 @@ app.get('/api/10times', async (req, res) => {
 
         await page.goto(
             'https://10times.com/kenya/technology',
-            { 
-               timeout: 60000,
-               waitUntil: 'networkidle2'
-             }
+            {
+                timeout: 60000,
+                waitUntil: 'networkidle2'
+            }
         )
 
         // Take a screenshot to see what loaded
-        await page.screenshot({ path: 'debug-screenshot.png', fullPage: true })
+        // await page.screenshot({ path: 'debug-screenshot.png', fullPage: true })
 
-        // Log the HTML to see what's actually there
-        const html = await page.content()
-        console.log('Page HTML length:', html.length)
-        
-        // Try to find ANY tr elements
-        const trElements = await page.$$('tr')
-        console.log('Found tr elements:', trElements.length)
-        
-        // Try to find elements with 'event-card' class
-        const eventCards = await page.$$('.event-card')
-        console.log('Found event-card elements:', eventCards.length)
-        
-        // Try broader selector
-        const rowElements = await page.$$('.row')
-        console.log('Found row elements:', rowElements.length)
+        // // Log the HTML to see what's actually there
+        // const html = await page.content()
+        // console.log('Page HTML length:', html.length)
 
-        await page.waitForSelector(".event-card", {
+        // // Try to find ANY tr elements
+        // const trElements = await page.$$('tr')
+        // console.log('Found tr elements:', trElements.length)
+
+        // // Try to find elements with 'event-card' class
+        // const eventCards = await page.$$('.event-card')
+        // console.log('Found event-card elements:', eventCards.length)
+
+        // // Try broader selector
+        // const rowElements = await page.$$('.row')
+        // console.log('Found row elements:', rowElements.length)
+
+        await page.waitForSelector("tr.row", {
             timeout: 80000
         })
 
-        let events = await page.$$eval(".event-card", elements =>
+        let events = await page.$$eval("tr.row", elements =>
             elements.map(el => {
                 const dateContainer = el.querySelector("td.col-12.text-dark")
                 const date = dateContainer ? dateContainer.querySelector("div.small.fw-500") : null
-                const titleContainer = el.querySelector("td.col-12.c-ga.cursor-pointer.text-break.show-related") 
+                const titleContainer = el.querySelector("td.col-12.c-ga")
+                const linkAttr = titleContainer ? titleContainer.getAttribute("onclick") : null
+                let link = null
+                if (titleContainer) {
+                    const linkAttr = titleContainer.getAttribute("onclick")
+                    if (linkAttr) {
+                        // Method 1: Using regex to extract URL from window.open('URL', '_blank')
+                        const match = linkAttr.match(/window\.open\(['"]([^'"]+)['"]/)
+                        console.log(match)
+                        if (match && match[1]) {
+                            link = match[1].startsWith('http')
+                                ? match[1]
+                                : 'https://10times.com' + match[1]
+                        }
+                    }
+                }
                 const titleCon = titleContainer ? titleContainer.querySelector("h2.position-relative.mb-0") : null
                 const header = titleCon ? titleCon.querySelector("span.text-decoration-none") : null
                 const title = header ? header.querySelector("span.d-block") : null
-                const venueContainer = el.querySelector("div.d-flex.text-primary")
+                const venueContainer = titleContainer ? titleContainer.querySelector("div.d-flex.text-primary") : null
                 const venue = venueContainer ? venueContainer.querySelector("div.small.text-primary") : null
                 const locationContainer = el.querySelector("td.col-12.mb-2")
                 const locationCon = locationContainer ? locationContainer.querySelector("div.small.fw-500.venue") : null
@@ -745,24 +760,25 @@ app.get('/api/10times', async (req, res) => {
                 const contentContainer = el.querySelector("td.col-12.mt-3")
                 const content = contentContainer ? contentContainer.querySelector("div.small.text-wrap.text-break") : null
 
+                console.log(linkAttr)
+
                 return {
                     title: title ? title.textContent.trim() : null,
-                    //url: link ? link.href : null,
                     date: date ? date.textContent.trim() : null,
-                    //price: price ? price.textContent.trim() : null,
                     content: content ? content.textContent.trim() : null,
-                    venue: venue ? venue.textContent.trim() : null,
-                    location: location ? location.textContent.trim() : null
+                    venue: venue ? venue.textContent.trim() : "Not informed",
+                    location: location ? location.textContent.trim() : null,
+                    link: link
                 }
             }
             )
         )
 
-        events.filter(event => event !== null)
+        events = events.filter(event => event !== null)
 
         console.log(events)
         browser.close()
-        
+
         res.json({
             success: true,
             data: events,

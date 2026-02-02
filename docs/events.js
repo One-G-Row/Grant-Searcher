@@ -7,6 +7,10 @@ const listGrants = document.querySelector(".list-grants")
 //section to populate events
 const listEvents = document.querySelector(".list-events")
 
+const calendarIcon = '📅'
+const locationIcon = '📍'
+const moneyIcon = '💰'
+
 //listens when an option is selected
 let selectEvents = document.querySelector("#select-events")
 selectEvents.addEventListener("change", () => {
@@ -16,8 +20,20 @@ selectEvents.addEventListener("change", () => {
 
     async function populateEventsBrite() {
         if (selectedEvent === "eventsbrite") {
-            listEvents.innerHTML = ""
+            
             try {
+                let loaded = false
+
+                console.log(loaded)
+
+                if (loaded === false) {
+                    listEvents.innerHTML = ""
+                    let loadingEvent = document.createElement("p")
+                    loadingEvent.setAttribute("class", "loading-event")
+                    loadingEvent.textContent = "Loading Event ...."
+                    listEvents.appendChild(loadingEvent)
+                }
+
                 const response = await fetch(`${API_URL}/eventsbrite`)
 
                 if (!response.ok) {
@@ -30,6 +46,8 @@ selectEvents.addEventListener("change", () => {
 
                 const eventsbriteArr = []
 
+                listEvents.innerHTML = ""
+
                 data.forEach((event) => {
                     const eventCard = document.createElement("div")
                     eventCard.setAttribute("class", "event-card")
@@ -40,10 +58,10 @@ selectEvents.addEventListener("change", () => {
                     const price = document.createElement("span")
 
                     if (event.title !== null && event.url !== null && event.date !== null && event.price !== null) {
-                        title.innerHTML = `<Label><b>Title: </b></Label>${event.title}`
-                        url.innerHTML = `<Label><b>Link: </b></Label><a href=${event.url}>${event.url}</a><br/>`
-                        date.innerHTML = `<Label><b>Date: </b></Label>${event.date}<br/>`
-                        price.innerHTML = `<Label><b>Price: </b></Label>${event.price}<br/>`
+                        title.innerHTML = `<a href=${event.url} target="_blank">${event.title}</a>`
+                        // url.innerHTML = `<Label><b>Link: </b></Label><a href=${event.url} target="_blank">${event.url}</a><br/>`
+                        date.innerHTML = `${calendarIcon} ${event.date}<br/>`
+                        price.innerHTML = `${moneyIcon} ${event.price}<br/>`
 
                         const eventsbriteObj = {
                             title: event.title,
@@ -79,8 +97,20 @@ selectEvents.addEventListener("change", () => {
 
     async function populateDevEvents() {
         if (selectedEvent === "devevents") {
-            listEvents.innerHTML = ""
+           
             try {
+                 let loaded = false
+
+                console.log(loaded)
+
+                if (loaded === false) {
+                    listEvents.innerHTML = ""
+                    let loadingEvent = document.createElement("p")
+                    loadingEvent.setAttribute("class", "loading-event")
+                    loadingEvent.textContent = "Loading Event ...."
+                    listEvents.appendChild(loadingEvent)
+                }
+
                 const response = await fetch(`${API_URL}/devevents`)
 
                 if (!response.ok) {
@@ -93,6 +123,8 @@ selectEvents.addEventListener("change", () => {
 
                 const deveventsArr = []
 
+                listEvents.innerHTML = ""
+
                 data.forEach((event) => {
                     const eventCard = document.createElement("div")
                     eventCard.setAttribute("class", "event-card")
@@ -103,10 +135,10 @@ selectEvents.addEventListener("change", () => {
                     const content = document.createElement("p")
 
                     if (event.title !== null && event.url !== null && event.date !== null && event.content !== null) {
-                        title.innerHTML = `<Label><b>Title: </b></Label>${event.title}`
-                        url.innerHTML = `<Label><b>Link: </b></Label><a href=${event.url}>${event.url}</a><br/>`
-                        date.innerHTML = `<Label><b>Date: </b></Label>${event.date}<br/>`
-                        content.innerHTML = `<Label></Label>${event.content}<br/>`
+                        title.innerHTML = `<a href=${event.url} target="_blank"> ${event.title}</a>`
+                        // url.innerHTML = `<Label><b>Link: </b></Label><a href=${event.url} target="_blank">${event.url}</a><br/>`
+                        date.innerHTML = `${calendarIcon} ${event.date}<br/>`
+                        content.innerHTML = `${event.content}<br/>`
 
                         const deveventsObj = {
                             title: event.title,
@@ -128,23 +160,34 @@ selectEvents.addEventListener("change", () => {
             }
             catch (error) {
                 console.error('Error', error)
+                listEvents.innerHTML = ""
+                let noEvent = document.createElement("p")
+                noEvent.setAttribute("class", "no-event")
+                noEvent.textContent = "This event doesn't exist"
+                listEvents.appendChild(noEvent)
             }
 
         }
-        else {
-            listEvents.innerHTML = ""
-            let loadingEvent = document.createElement("p")
-            loadingEvent.setAttribute("class", "loading-event")
-            loadingEvent.textContent = "Loading Event ...."
-            listEvents.appendChild(loadingEvent)
-        }
+
     }
 
     //international conferences events
     async function populateInternationalConferences() {
         if (selectedEvent === "internationalconferences") {
-            listEvents.innerHTML = ""
+           
             try {
+                let loaded = false
+
+                console.log(loaded)
+
+                if (loaded === false) {
+                    listEvents.innerHTML = ""
+                    let loadingEvent = document.createElement("p")
+                    loadingEvent.setAttribute("class", "loading-event")
+                    loadingEvent.textContent = "Loading Event ...."
+                    listEvents.appendChild(loadingEvent)
+                }
+
                 const response = await fetch(`${API_URL}/internationalconferences`)
 
                 if (!response.ok) {
@@ -157,7 +200,9 @@ selectEvents.addEventListener("change", () => {
 
                 const iconferencesArr = []
 
-                data.forEach((event) => {
+                listEvents.innerHTML = ""
+
+              data.forEach((event) => {
                     const eventCard = document.createElement("div")
                     eventCard.setAttribute("class", "event-card")
 
@@ -188,27 +233,33 @@ selectEvents.addEventListener("change", () => {
                         listEvents.appendChild(eventCard)
                     }
 
-                })
-            }
+            })
+        }
             catch (error) {
                 console.error('Error', error)
             }
 
-        }
-        else {
-            listEvents.innerHTML = ""
-            let loadingEvent = document.createElement("p")
-            loadingEvent.setAttribute("class", "loading-event")
-            loadingEvent.textContent = "Loading Event ...."
-            listEvents.appendChild(loadingEvent)
         }
     }
 
     //conference alerts events
     async function populateConferencesAlerts() {
         if (selectedEvent === "conferencealerts") {
-            listEvents.innerHTML = ""
+          
             try {
+                let loaded = false
+
+                console.log(loaded)
+
+                if (loaded === false) {
+                    listEvents.innerHTML = ""
+                    let loadingEvent = document.createElement("p")
+                    loadingEvent.setAttribute("class", "loading-event")
+                    loadingEvent.textContent = "Loading Event ...."
+                    listEvents.appendChild(loadingEvent)
+                }
+
+
                 const response = await fetch(`${API_URL}/conferencealerts`)
 
                 if (!response.ok) {
@@ -219,9 +270,11 @@ selectEvents.addEventListener("change", () => {
 
                 const data = responseData.data
 
-                const conferencesalertsArr = []
-
+                const conferencesalertsArr = [] 
+                
+                listEvents.innerHTML = ""
                 data.forEach((event) => {
+                   
                     const eventCard = document.createElement("div")
                     eventCard.setAttribute("class", "event-card")
 
@@ -231,10 +284,10 @@ selectEvents.addEventListener("change", () => {
                     const location = document.createElement("span")
 
                     if (event.title !== null && event.url !== null && event.date !== null) {
-                        title.innerHTML = `<Label><b>Title: </b></Label>${event.title}`
-                        url.innerHTML = `<Label><b>Link: </b></Label><a href=${event.url}>${event.url}</a><br/>`
-                        date.innerHTML = `<Label><b>Date: </b></Label>${event.date}<br/>`
-                        location.innerHTML = `<Label><b>Location: </b></Label>${event.location}<br/>`
+                        title.innerHTML = `<a href=${event.url} target="_blank"> ${event.title}</a>`
+                        // url.innerHTML = `<Label><b>Link: </b></Label><a href=${event.url} target="_blank">${event.url}</a><br/>`
+                        date.innerHTML = `${calendarIcon} ${event.date}<br/>`
+                        location.innerHTML = `${locationIcon} ${event.location}<br/>`
 
                         const conferencesalertsObj = {
                             title: event.title,
@@ -250,29 +303,40 @@ selectEvents.addEventListener("change", () => {
 
                         eventCard.append(title, url, date, location)
                         listEvents.appendChild(eventCard)
+                        loaded = true
                     }
 
+                    
+
                 })
+            
+               
             }
             catch (error) {
                 console.error('Error', error)
             }
 
         }
-        else {
-            listEvents.innerHTML = ""
-            let loadingEvent = document.createElement("p")
-            loadingEvent.setAttribute("class", "loading-event")
-            loadingEvent.textContent = "Loading Event ...."
-            listEvents.appendChild(loadingEvent)
-        }
+
     }
 
     async function populate10TimesEvent() {
         if (selectedEvent === "10times") {
-            listEvents.innerHTML = ""
+            
             try {
-                const response = await fetch(`${API_URL}/10times`)
+                let loaded = false
+
+                console.log(loaded)
+
+                if (loaded === false) {
+                    listEvents.innerHTML = ""
+                    let loadingEvent = document.createElement("p")
+                    loadingEvent.setAttribute("class", "loading-event")
+                    loadingEvent.textContent = "Loading Event ...."
+                    listEvents.appendChild(loadingEvent)
+                }
+                
+                const response = await fetch(`${API_URL}/tentimes`)
 
                 if (!response.ok) {
                     console.error(`HTTP Server Error ${response.status}`)
@@ -281,8 +345,11 @@ selectEvents.addEventListener("change", () => {
                 const responseData = await response.json()
 
                 const data = responseData.data
+                console.log(data)
 
                 const tentimesArr = []
+
+                listEvents.innerHTML = ""
 
                 data.forEach((event) => {
                     const eventCard = document.createElement("div")
@@ -294,30 +361,33 @@ selectEvents.addEventListener("change", () => {
                     const location = document.createElement("span")
                     const content = document.createElement("p")
 
-                    if (event.title !== null && event.date !== null /* && event.location !== null && event.content !== null && */ ) {
-                        title.innerHTML = `<Label><b>Title: </b></Label>${event.title}`
-                        date.innerHTML = `<Label><b>Date: </b></Label>${event.date}<br/>`
-                        location.innerHTML = `<Label><b>Location: </b></Label>${event.location}<br/>`
-                        venue.innerHTML = `<Label><b>Venue: </b></Label>${event.venue}<br/>`
-                        content.innerHTML = `<Label><b>Content: </b></Label>${event.content}<br/>`
+
+
+                    if (event.title !== null && event.date !== null /* && event.location !== null && event.content !== null && */) {
+                        title.innerHTML = `<a href=${event.link} target="_blank">${event.title}</a>`
+                        date.innerHTML = `${calendarIcon} ${event.date}<br/>`
+                        location.innerHTML = `${locationIcon} ${event.location}<br/>`
+                        venue.innerHTML = event.venue === 'Not informed' ? "" : `<Label><b>Venue / Timeline: </b></Label>${event.venue}<br/>`
+                        content.innerHTML = `</Label>${event.content}<br/>`
 
                         const tentimesObj = {
                             title: event.title,
                             date: event.date,
                             location: event.location,
                             venue: event.venue,
-                            content: event.content
+                            content: event.content,
+                            link: event.link
                         }
 
                         tentimesArr.push(tentimesObj)
 
 
                         console.log(tentimesArr)
-                        eventCard.append(title, date, content, location, venue)
+                        eventCard.append(title, content, date, location, venue)
                         listEvents.appendChild(eventCard)
                     }
-                     localStorage.setItem("tentimes", JSON.stringify(tentimesArr))
-                        //localStorage.removeItem("10times")
+                    localStorage.setItem("tentimes", JSON.stringify(tentimesArr))
+                    //localStorage.removeItem("tentimes")
                 })
             }
             catch (error) {
@@ -325,12 +395,7 @@ selectEvents.addEventListener("change", () => {
             }
 
         }
-        else {
-            let loadingEvent = document.createElement("p")
-            loadingEvent.setAttribute("class", "loading-event")
-            loadingEvent.textContent = "Loading Event ...."
-            listEvents.appendChild(loadingEvent)
-        }
+
     }
 
     populateEventsBrite()
@@ -373,10 +438,10 @@ async function searchEvents() {
             const date = document.createElement("span")
             const price = document.createElement("span")
 
-            title.innerHTML = `<Label><b>Title: </b></Label>${event.title}`
-            url.innerHTML = `<Label><b>Link: </b></Label><a href=${event.url}>${event.url}</a><br/>`
-            date.innerHTML = `<Label><b>Date: </b></Label>${event.date}<br/>`
-            price.innerHTML = `<Label><b>Price: </b></Label>${event.price}<br/>`
+            title.innerHTML = `<a href=${event.url} target="_blank">${event.title}</a>`
+            // url.innerHTML = `<Label><b>Link: </b></Label><a href=${event.url} target="_blank">${event.url}</a><br/>`
+            date.innerHTML = `${calendarIcon} ${event.date}<br/>`
+            price.innerHTML = `${moneyIcon} ${event.price}<br/>`
 
             console.log(title, url, date, price)
 
@@ -409,14 +474,51 @@ async function searchEvents() {
             const date = document.createElement("span")
             const content = document.createElement("p")
 
-            title.innerHTML = `<Label><b>Title: </b></Label>${event.title}`
-            url.innerHTML = `<Label><b>Link: </b></Label><a href=${event.url}>${event.url}</a><br/>`
-            date.innerHTML = `<Label><b>Date: </b></Label>${event.date}<br/>`
-            content.innerHTML = `<Label></Label>${event.content}<br/>`
+            title.innerHTML = `<a href=${event.url} target="_blank">${event.title}</a>`
+            content.innerHTML = `${event.content}<br/>`
+            // url.innerHTML = `<Label><b>Link: </b></Label><a href=${event.url} target="_blank">${event.url}</a><br/>`
+            date.innerHTML = `${calendarIcon}${event.date}<br/>`
 
             console.log(title, url, date, content)
 
             eventCard.append(title, content, url, date)
+            listEvents.appendChild(eventCard)
+        }
+
+    })
+
+    //search afor tentimes events
+    let tentimesEvents = JSON.parse(localStorage.getItem("tentimes"))
+    console.log(tentimesEvents)
+
+    let tentimesArr = []
+
+    for (let event of tentimesEvents) {
+        tentimesArr.push(event)
+    }
+
+    tentimesArr.forEach((event) => {
+        let modifiedEventTitle = event.title.toLowerCase()
+        //modifiedEventTitle.toLowerCase()
+
+        const eventCard = document.createElement("div")
+        eventCard.setAttribute("class", "event-card")
+
+        if (modifiedEventTitle.includes(inputValue) || event.date.toLowerCase().includes(inputValue) || event.location.toLowerCase().includes(inputValue)) {
+            const title = document.createElement("h4")
+            const content = document.createElement("p")
+            const date = document.createElement("span")
+            const location = document.createElement("span")
+            const venue = document.createElement("span")
+
+            title.innerHTML = `<a href=${event.link} target="_blank">${event.title}</a>`
+            date.innerHTML = `${calendarIcon} ${event.date}<br/>`
+            location.innerHTML = `${locationIcon} ${event.location}<br/>`
+            venue.innerHTML = event.venue === 'Not informed' ? "" : `<Label><b>Venue / Timeline: </b></Label>${event.venue}<br/>`
+            content.innerHTML = `</Label>${event.content}<br/>`
+
+
+            eventCard.append(title, content, date, location, venue)
             listEvents.appendChild(eventCard)
         }
 
@@ -445,10 +547,10 @@ async function searchEvents() {
             const date = document.createElement("span")
             const location = document.createElement("span")
 
-            title.innerHTML = `<Label><b>Title: </b></Label>${event.title}`
-            url.innerHTML = `<Label><b>Link: </b></Label><a href=${event.url} target="_blank">${event.url}</a><br/>`
-            date.innerHTML = `<Label><b>Date: </b></Label>${event.date}<br/>`
-            location.innerHTML = `<Label<b>Location: </b></Label>${event.location}<br/>`
+            title.innerHTML = `<a href=${event.url} target="_blank">${event.title}</a>`
+            // url.innerHTML = `<Label><b>Link: </b></Label><a href=${event.url} target="_blank">${event.url}</a><br/>`
+            date.innerHTML = `${calendarIcon} ${event.date}<br/>`
+            location.innerHTML = `${locationIcon} ${event.location}<br/>`
 
             eventCard.append(title, url, date, location)
             listEvents.appendChild(eventCard)
@@ -479,10 +581,10 @@ async function searchEvents() {
             const date = document.createElement("span")
             const location = document.createElement("span")
 
-            title.innerHTML = `<Label><b>Title: </b></Label>${event.title}`
-            url.innerHTML = `<Label><b>Link: </b></Label><a href=${event.url} target="_blank">${event.url}</a><br/>`
-            date.innerHTML = `<Label><b>Date: </b></Label>${event.date}<br/>`
-            location.innerHTML = `<Label<b>Location: </b></Label>${event.location}<br/>`
+            title.innerHTML = `<Label></Label><a href=${event.url} target="_blank">${event.title}</a>`
+            // url.innerHTML = `<Label><b>Link: </b></Label><a href=${event.url} target="_blank">${event.url}</a><br/>`
+            date.innerHTML = `${calendarIcon} ${event.date}<br/>`
+            location.innerHTML = `${locationIcon} ${event.location}<br/>`
 
             eventCard.append(title, url, date, location)
             listEvents.appendChild(eventCard)
