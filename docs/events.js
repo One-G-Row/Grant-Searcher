@@ -13,16 +13,19 @@ const moneyIcon = '💰'
 
 //listens when an option is selected
 let selectEvents = document.querySelector("#select-events")
+
+
 selectEvents.addEventListener("change", () => {
     let selectedEvent = selectEvents.value
 
     listGrants.innerHTML = ""
 
-    
+
+
 
     async function populateEventsBrite() {
         if (selectedEvent === "eventsbrite") {
-            
+            listEvents.innerHTML = ""
             try {
                 let loaded = false
 
@@ -104,9 +107,10 @@ selectEvents.addEventListener("change", () => {
 
     async function populateDevEvents() {
         if (selectedEvent === "devevents") {
-           
+            listEvents.innerHTML = ""
+
             try {
-                 let loaded = false
+                let loaded = false
 
                 console.log(loaded)
 
@@ -181,7 +185,7 @@ selectEvents.addEventListener("change", () => {
     //international conferences events
     async function populateInternationalConferences() {
         if (selectedEvent === "internationalconferences") {
-           
+            listEvents.innerHTML = ""
             try {
                 let loaded = false
 
@@ -209,7 +213,7 @@ selectEvents.addEventListener("change", () => {
 
                 listEvents.innerHTML = ""
 
-              data.forEach((event) => {
+                data.forEach((event) => {
                     const eventCard = document.createElement("div")
                     eventCard.setAttribute("class", "event-card")
 
@@ -240,8 +244,8 @@ selectEvents.addEventListener("change", () => {
                         listEvents.appendChild(eventCard)
                     }
 
-            })
-        }
+                })
+            }
             catch (error) {
                 console.error('Error', error)
                 listEvents.innerHTML = ""
@@ -257,7 +261,7 @@ selectEvents.addEventListener("change", () => {
     //conference alerts events
     async function populateConferencesAlerts() {
         if (selectedEvent === "conferencealerts") {
-          
+            listEvents.innerHTML = ""
             try {
                 let loaded = false
 
@@ -282,11 +286,11 @@ selectEvents.addEventListener("change", () => {
 
                 const data = responseData.data
 
-                const conferencesalertsArr = [] 
-                
+                const conferencesalertsArr = []
+
                 listEvents.innerHTML = ""
                 data.forEach((event) => {
-                   
+
                     const eventCard = document.createElement("div")
                     eventCard.setAttribute("class", "event-card")
 
@@ -318,11 +322,11 @@ selectEvents.addEventListener("change", () => {
                         loaded = true
                     }
 
-                    
+
 
                 })
-            
-               
+
+
             }
             catch (error) {
                 console.error('Error', error)
@@ -339,7 +343,7 @@ selectEvents.addEventListener("change", () => {
 
     async function populate10TimesEvent() {
         if (selectedEvent === "10times") {
-            
+            listEvents.innerHTML = ""
             try {
                 let loaded = false
 
@@ -352,7 +356,7 @@ selectEvents.addEventListener("change", () => {
                     loadingEvent.textContent = "Loading Event ...."
                     listEvents.appendChild(loadingEvent)
                 }
-                
+
                 const response = await fetch(`${API_URL}/tentimes`)
 
                 if (!response.ok) {
@@ -429,10 +433,23 @@ selectEvents.addEventListener("change", () => {
 
 let searchInput = document.querySelector(".search-input")
 
+//devEvents
+let devEvents = JSON.parse(localStorage.getItem("devevents"))
+
+//tentimesEvents
+let tentimesEvents = JSON.parse(localStorage.getItem("tentimes"))
+
+//international conferences
+let icEvents = JSON.parse(localStorage.getItem("internationalconferences"))
+
+//conference Alert events
+let conferenceAlertEvents = JSON.parse(localStorage.getItem("conferencesalerts"))
 
 async function searchEvents() {
     listGrants.innerHTML = ""
     listEvents.innerHTML = ""
+
+    let eventsFound = false
 
     let inputValue = searchInput.value.toLowerCase().trim()
     console.log(inputValue)
@@ -469,12 +486,22 @@ async function searchEvents() {
 
             eventCard.append(title, url, date, price)
             listEvents.appendChild(eventCard)
+            eventsFound = true
         }
 
     })
 
+    //if no grants are found display message that no grants are found
+    if (eventsFound === false) {
+        listEvents.innerHTML = ""
+        let noEvent = document.createElement("p")
+        noEvent.setAttribute("class", "no-event")
+        noEvent.textContent = "The search entry value is not present in the listed events."
+        listEvents.appendChild(noEvent)
+    }
+
     //search for devevents
-    let devEvents = JSON.parse(localStorage.getItem("devevents"))
+
     //console.log(devevents)
 
     let deveventsArr = []
@@ -505,12 +532,21 @@ async function searchEvents() {
 
             eventCard.append(title, content, url, date)
             listEvents.appendChild(eventCard)
+            eventsFound = true
         }
 
     })
 
+    //if no grants are found display message that no grants are found
+    if (eventsFound === false) {
+        listEvents.innerHTML = ""
+        let noEvent = document.createElement("p")
+        noEvent.setAttribute("class", "no-event")
+        noEvent.textContent = "The search entry value is not present in the listed events."
+        listEvents.appendChild(noEvent)
+    }
     //search afor tentimes events
-    let tentimesEvents = JSON.parse(localStorage.getItem("tentimes"))
+
     console.log(tentimesEvents)
 
     let tentimesArr = []
@@ -542,12 +578,21 @@ async function searchEvents() {
 
             eventCard.append(title, content, date, location, venue)
             listEvents.appendChild(eventCard)
+            eventsFound = true
         }
 
     })
+    //if no grants are found display message that no grants are found
+    if (eventsFound === false) {
+        listEvents.innerHTML = ""
+        let noEvent = document.createElement("p")
+        noEvent.setAttribute("class", "no-event")
+        noEvent.textContent = "The search entry value is not present in the listed events."
+        listEvents.appendChild(noEvent)
+    }
 
     //search for international conferences
-    let icEvents = JSON.parse(localStorage.getItem("internationalconferences"))
+
     //console.log(icEvents)
 
     let icEventsArr = []
@@ -576,12 +621,21 @@ async function searchEvents() {
 
             eventCard.append(title, url, date, location)
             listEvents.appendChild(eventCard)
+            eventsFound = true
         }
 
     })
+    //if no grants are found display message that no grants are found
+    if (eventsFound === false) {
+        listEvents.innerHTML = ""
+        let noEvent = document.createElement("p")
+        noEvent.setAttribute("class", "no-event")
+        noEvent.textContent = "The search entry value is not present in the listed events."
+        listEvents.appendChild(noEvent)
+    }
 
     //search for conference alerts
-    let conferenceAlertEvents = JSON.parse(localStorage.getItem("conferencesalerts"))
+
     //console.log(coonferenceAlertEvents)
 
     let conferenceAlertEventsArr = []
@@ -610,33 +664,139 @@ async function searchEvents() {
 
             eventCard.append(title, url, date, location)
             listEvents.appendChild(eventCard)
+            eventsFound = true
         }
 
     })
+    //if no grants are found display message that no grants are found
+    if (eventsFound === false) {
+        listEvents.innerHTML = ""
+        let noEvent = document.createElement("p")
+        noEvent.setAttribute("class", "no-event")
+        noEvent.textContent = "The search entry value is not present in the listed events."
+        listEvents.appendChild(noEvent)
+    }
 }
 
+
 //populate all events when events option is selected
-async function populateAllEvents(){
-        if (selectedEvent === "events"){
-            try{
-                let loaded = false
 
-                console.log(loaded)
+async function populateAllEvents() {
+    listGrants.innerHTML = ""
+    //if (selectedEvent === "events") {
+    if (devEvents) {
+        try {
+            devEvents.forEach((event) => {
+                const eventCard = document.createElement("div")
+                eventCard.setAttribute("class", "event-card")
 
-                if (loaded === false) {
-                    listEvents.innerHTML = ""
-                    let loadingEvent = document.createElement("p")
-                    loadingEvent.setAttribute("class", "loading-event")
-                    loadingEvent.textContent = "Loading Event ...."
-                    listEvents.appendChild(loadingEvent)
-                }
+                const title = document.createElement("h4")
+                const url = document.createElement("a")
+                const date = document.createElement("span")
+                const content = document.createElement("p")
 
+                title.innerHTML = `<a href=${event.url} target="_blank">${event.title}</a>`
+                content.innerHTML = `${event.content}<br/>`
+                date.innerHTML = `${calendarIcon}${event.date}<br/>`
 
-            }catch(error){
-                console.log("Error", error)
-            }
+                console.log(title, url, date, content)
+
+                eventCard.append(title, content, url, date)
+                listEvents.appendChild(eventCard)
+            })
+
+        } catch (error) {
+            console.log("Error", error)
         }
     }
+
+    if (tentimesEvents) {
+        try {
+            tentimesEvents.forEach((event) => {
+                const eventCard = document.createElement("div")
+                eventCard.setAttribute("class", "event-card")
+
+                const title = document.createElement("h4")
+                const content = document.createElement("p")
+                const date = document.createElement("span")
+                const location = document.createElement("span")
+                const venue = document.createElement("span")
+
+                title.innerHTML = `<a href=${event.link} target="_blank">${event.title}</a>`
+                date.innerHTML = `${calendarIcon} ${event.date}<br/>`
+                location.innerHTML = `${locationIcon} ${event.location}<br/>`
+                venue.innerHTML = event.venue === 'Not informed' ? "" : `<Label><b>Venue / Timeline: </b></Label>${event.venue}<br/>`
+                content.innerHTML = `</Label>${event.content}<br/>`
+
+
+                eventCard.append(title, content, date, location, venue)
+                listEvents.appendChild(eventCard)
+            })
+
+        } catch (error) {
+            console.log("Error", error)
+        }
+    }
+
+    if (icEvents) {
+        try {
+            icEvents.forEach((event) => {
+                const eventCard = document.createElement("div")
+                eventCard.setAttribute("class", "event-card")
+
+                const title = document.createElement("h4")
+                const url = document.createElement("a")
+                const date = document.createElement("span")
+                const location = document.createElement("span")
+
+                title.innerHTML = `<a href=${event.url} target="_blank">${event.title}</a>`
+                // url.innerHTML = `<Label><b>Link: </b></Label><a href=${event.url} target="_blank">${event.url}</a><br/>`
+                date.innerHTML = `${calendarIcon} ${event.date}<br/>`
+                location.innerHTML = `${locationIcon} ${event.location}<br/>`
+
+                eventCard.append(title, url, date, location)
+                listEvents.appendChild(eventCard)
+            })
+
+        } catch (error) {
+            console.log("Error", error)
+        }
+    }
+
+    if (conferenceAlertEvents) {
+        try {
+            conferenceAlertEvents.forEach((event) => {
+                const eventCard = document.createElement("div")
+                eventCard.setAttribute("class", "event-card")
+
+                const title = document.createElement("h4")
+                const url = document.createElement("a")
+                const date = document.createElement("span")
+                const location = document.createElement("span")
+
+                title.innerHTML = `<Label></Label><a href=${event.url} target="_blank">${event.title}</a>`
+                date.innerHTML = `${calendarIcon} ${event.date}<br/>`
+                location.innerHTML = `${locationIcon} ${event.location}<br/>`
+
+                eventCard.append(title, url, date, location)
+                listEvents.appendChild(eventCard)
+            })
+
+        } catch (error) {
+            console.log("Error", error)
+        }
+    }
+}
+
+//}
+//populateAllEvents()
+selectEvents.addEventListener("click", () => {
+    let selectedEvent = selectEvents.value
+    if (selectedEvent === "events") {
+        listEvents.innerHTML = ""
+        populateAllEvents()
+    }
+})
 
 //use event click and keypress to search for events
 let searchButton = document.querySelector(".search-button-events")
@@ -647,6 +807,7 @@ searchInput.addEventListener("keypress", (e) => {
         searchEvents()
     }
 })
+
 
 // module.exports = {
 // searchEvents: searchEvents
