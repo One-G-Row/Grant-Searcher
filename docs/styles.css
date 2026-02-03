@@ -145,13 +145,19 @@ border-radius: 5px;
 margin-right: 10px;
 }
 
-.option:hover{
+
+option:hover{
     background-color: #000;
     color: #fff;
     cursor: pointer;
 }
 
 .no-grant{
+    font-weight: bold;
+    text-align:  center;
+}
+
+.no-event{
     font-weight: bold;
     text-align:  center;
 }

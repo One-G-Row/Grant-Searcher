@@ -83,6 +83,11 @@ selectEvents.addEventListener("change", () => {
             }
             catch (error) {
                 console.error('Error', error)
+                listEvents.innerHTML = ""
+                let noEvent = document.createElement("p")
+                noEvent.setAttribute("class", "no-event")
+                noEvent.textContent = "The event scraper is not available at the moment."
+                listEvents.appendChild(noEvent)
             }
 
         }
@@ -163,7 +168,7 @@ selectEvents.addEventListener("change", () => {
                 listEvents.innerHTML = ""
                 let noEvent = document.createElement("p")
                 noEvent.setAttribute("class", "no-event")
-                noEvent.textContent = "This event doesn't exist"
+                noEvent.textContent = "The event scraper is not available at the moment."
                 listEvents.appendChild(noEvent)
             }
 
@@ -237,6 +242,11 @@ selectEvents.addEventListener("change", () => {
         }
             catch (error) {
                 console.error('Error', error)
+                listEvents.innerHTML = ""
+                let noEvent = document.createElement("p")
+                noEvent.setAttribute("class", "no-event")
+                noEvent.textContent = "The event scraper is not available at the moment."
+                listEvents.appendChild(noEvent)
             }
 
         }
@@ -314,6 +324,11 @@ selectEvents.addEventListener("change", () => {
             }
             catch (error) {
                 console.error('Error', error)
+                listEvents.innerHTML = ""
+                let noEvent = document.createElement("p")
+                noEvent.setAttribute("class", "no-event")
+                noEvent.textContent = "The event scraper is not available at the moment."
+                listEvents.appendChild(noEvent)
             }
 
         }
@@ -392,6 +407,11 @@ selectEvents.addEventListener("change", () => {
             }
             catch (error) {
                 console.error('Error', error)
+                listEvents.innerHTML = ""
+                let noEvent = document.createElement("p")
+                noEvent.setAttribute("class", "no-event")
+                noEvent.textContent = "The event scraper is not available at the moment."
+                listEvents.appendChild(noEvent)
             }
 
         }

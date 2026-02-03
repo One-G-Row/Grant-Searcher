@@ -54,96 +54,105 @@ grants.addEventListener("change", () => {
     console.log(selectedValue)
 
     async function populateGovGrants() {
-        if (selectedValue === "grantsgov") {
-            listEvents.innerHTML = ""
+        try {
+            if (selectedValue === "grantsgov") {
+                listEvents.innerHTML = ""
 
-            let loaded = false
+                let loaded = false
 
-            console.log(loaded)
+                console.log(loaded)
 
-            if (loaded === false) {
-                listGrants.innerHTML = ""
-
-
-                let loadingGrant = document.createElement("p")
-                loadingGrant.setAttribute("class", "loading-grant")
-                loadingGrant.textContent = "Loading Grant ...."
-                listGrants.appendChild(loadingGrant)
-            }
-
-            const responseData = await postGrants()
-
-            console.log(responseData)
+                if (loaded === false) {
+                    listGrants.innerHTML = ""
 
 
-            //responseData.forEach(grant => {
-
-
-            let grants = responseData.data.oppHits
-
-            //create an array for storing gtants gov obj
-            let grantsGovArr = []
-
-            listGrants.innerHTML = ""
-
-            grants.forEach(grant => {
-                //create card to hold grant info
-                let grantCard = document.createElement("div")
-                grantCard.setAttribute("class", "grant-card")
-
-                let ul = document.createElement("ul")
-                ul.setAttribute("class", "grant-ul")
-
-                let titleLabel = document.createElement("label")
-                titleLabel.textContent = "Grant Title: "
-                let title = document.createElement("li")
-                title.setAttribute("class", "title")
-                title.textContent = `${grant.title}`
-                let titleContainer = document.createElement("div")
-                titleContainer.setAttribute("class", "title-container")
-                titleContainer.append(titleLabel, title)
-
-                let openDateLabel = document.createElement("label")
-                openDateLabel.textContent = "Open Date: "
-                let openDate = document.createElement("li")
-                openDate.textContent = `${grant.openDate}`
-                let openDateContainer = document.createElement("div")
-                openDateContainer.setAttribute("class", "opendate-container")
-                openDateContainer.append(openDateLabel, openDate)
-
-                let closeDateLabel = document.createElement("label")
-                closeDateLabel.textContent = "Close Date: "
-                let closeDate = document.createElement("li")
-                closeDate.textContent = `${grant.closeDate}`
-                let closeDateContainer = document.createElement("div")
-                closeDateContainer.setAttribute("class", "closedate-container")
-                closeDateContainer.append(closeDateLabel, closeDate)
-
-                let agencyContainer = document.createElement("div")
-                let agencyLabel = document.createElement("label")
-                agencyLabel.textContent = "Agency: "
-                let agency = document.createElement("li")
-                agency.textContent = `${grant.agency}`
-                agencyContainer.setAttribute("class", "agency-container")
-                agencyContainer.append(agencyLabel, agency)
-
-                let grantsGovObj = {
-                    title: grant.title,
-                    openData: grant.openDate,
-                    closeDate: grant.closeDate,
-                    agency: grant.agency
+                    let loadingGrant = document.createElement("p")
+                    loadingGrant.setAttribute("class", "loading-grant")
+                    loadingGrant.textContent = "Loading Grant ...."
+                    listGrants.appendChild(loadingGrant)
                 }
 
-                grantsGovArr.push(grantsGovObj)
+                const responseData = await postGrants()
 
-                localStorage.setItem("grantsGov", JSON.stringify(grantsGovArr))
+                console.log(responseData)
 
-                ul.append(titleContainer, agencyContainer, openDateContainer, closeDateContainer)
-                grantCard.appendChild(ul)
-                listGrants.appendChild(grantCard)
-            })
-            //})
 
+                //responseData.forEach(grant => {
+
+
+                let grants = responseData.data.oppHits
+
+                //create an array for storing gtants gov obj
+                let grantsGovArr = []
+
+                listGrants.innerHTML = ""
+
+                grants.forEach(grant => {
+                    //create card to hold grant info
+                    let grantCard = document.createElement("div")
+                    grantCard.setAttribute("class", "grant-card")
+
+                    let ul = document.createElement("ul")
+                    ul.setAttribute("class", "grant-ul")
+
+                    let titleLabel = document.createElement("label")
+                    titleLabel.textContent = "Grant Title: "
+                    let title = document.createElement("li")
+                    title.setAttribute("class", "title")
+                    title.textContent = `${grant.title}`
+                    let titleContainer = document.createElement("div")
+                    titleContainer.setAttribute("class", "title-container")
+                    titleContainer.append(titleLabel, title)
+
+                    let openDateLabel = document.createElement("label")
+                    openDateLabel.textContent = "Open Date: "
+                    let openDate = document.createElement("li")
+                    openDate.textContent = `${grant.openDate}`
+                    let openDateContainer = document.createElement("div")
+                    openDateContainer.setAttribute("class", "opendate-container")
+                    openDateContainer.append(openDateLabel, openDate)
+
+                    let closeDateLabel = document.createElement("label")
+                    closeDateLabel.textContent = "Close Date: "
+                    let closeDate = document.createElement("li")
+                    closeDate.textContent = `${grant.closeDate}`
+                    let closeDateContainer = document.createElement("div")
+                    closeDateContainer.setAttribute("class", "closedate-container")
+                    closeDateContainer.append(closeDateLabel, closeDate)
+
+                    let agencyContainer = document.createElement("div")
+                    let agencyLabel = document.createElement("label")
+                    agencyLabel.textContent = "Agency: "
+                    let agency = document.createElement("li")
+                    agency.textContent = `${grant.agency}`
+                    agencyContainer.setAttribute("class", "agency-container")
+                    agencyContainer.append(agencyLabel, agency)
+
+                    let grantsGovObj = {
+                        title: grant.title,
+                        openData: grant.openDate,
+                        closeDate: grant.closeDate,
+                        agency: grant.agency
+                    }
+
+                    grantsGovArr.push(grantsGovObj)
+
+                    localStorage.setItem("grantsGov", JSON.stringify(grantsGovArr))
+
+                    ul.append(titleContainer, agencyContainer, openDateContainer, closeDateContainer)
+                    grantCard.appendChild(ul)
+                    listGrants.appendChild(grantCard)
+                })
+                //})
+
+            }
+        } catch (error) {
+            console.log('Error', error)
+            listGrants.innerHTML = ""
+            let noGrant = document.createElement("p")
+            noGrant.setAttribute("class", "no-grant")
+            noGrant.textContent = "The grant scraper is not available at the moment."
+            listEvents.appendChild(noGrant)
         }
     }
 
@@ -152,75 +161,84 @@ grants.addEventListener("change", () => {
     const fundsForNgosButton = document.querySelector('.funds-for-ngos-button')
 
     async function populateFundsForNgos() {
-        //fundsForNgosButton.addEventListener("click", async () => {
-        if (selectedValue === "fundsforngos") {
-            listEvents.innerHTML = ""
+        try {
+            //fundsForNgosButton.addEventListener("click", async () => {
+            if (selectedValue === "fundsforngos") {
+                listEvents.innerHTML = ""
 
-            let loaded = false
+                let loaded = false
 
-            console.log(loaded)
+                console.log(loaded)
 
-            if (loaded === false) {
-                listGrants.innerHTML = ""
-                let loadingGrant = document.createElement("p")
-                loadingGrant.setAttribute("class", "loading-grant")
-                loadingGrant.textContent = "Loading Grant ...."
-                listGrants.appendChild(loadingGrant)
-            }
-
-
-            const response = await fetch(`${API_URL}/funds-for-ngos`)
-
-            if (!response.ok) {
-                console.log(`HTTP SERVER ERROR, ${response.status}`)
-            }
-
-            const responseData = await response.json()
-
-
-            let data = responseData.data
-            let content = data.content
-
-            //let links = responseData.links
-
-            let fundsNgosArr = []
-
-            listGrants.innerHTML = ""
-
-            data.forEach((grant) => {
-                let grantCard = document.createElement("div")
-                grantCard.setAttribute("class", "grant-card")
-
-                if (grant.title !== null && grant.url !== null && grant.content !== null) {
-                    let fundsTitle = document.createElement("li")
-                    fundsTitle.innerHTML = `<label><b>Grant Title:</b> </label>${grant.title}`
-                    let fundsUrl = document.createElement("li")
-                    fundsUrl.innerHTML = `<label><b>Grant URL:</b> </label><a href=${grant.url} target="_blank">${grant.url}</a>`
-                    let fundsDate = document.createElement("li")
-                    fundsDate.innerHTML = `<span>${grant.content.slice(0, 21)}</span>`
-
-                    let ul = document.createElement("ul")
-
-                    let fundsNgosObj = {
-                        title: grant.title,
-                        url: grant.url,
-                        date: grant.content.slice(0, 21)
-                    }
-
-                    fundsNgosArr.push(fundsNgosObj)
-
-                    localStorage.setItem("fundsForNgos", JSON.stringify(fundsNgosArr))
-
-                    ul.append(fundsTitle, fundsUrl, fundsDate)
-                    grantCard.appendChild(ul)
-                    listGrants.appendChild(grantCard)
+                if (loaded === false) {
+                    listGrants.innerHTML = ""
+                    let loadingGrant = document.createElement("p")
+                    loadingGrant.setAttribute("class", "loading-grant")
+                    loadingGrant.textContent = "Loading Grant ...."
+                    listGrants.appendChild(loadingGrant)
                 }
 
 
-            })
+                const response = await fetch(`${API_URL}/funds-for-ngos`)
 
-            console.log(data)
-            return data
+                if (!response.ok) {
+                    console.log(`HTTP SERVER ERROR, ${response.status}`)
+                }
+
+                const responseData = await response.json()
+
+
+                let data = responseData.data
+                let content = data.content
+
+                //let links = responseData.links
+
+                let fundsNgosArr = []
+
+                listGrants.innerHTML = ""
+
+                data.forEach((grant) => {
+                    let grantCard = document.createElement("div")
+                    grantCard.setAttribute("class", "grant-card")
+
+                    if (grant.title !== null && grant.url !== null && grant.content !== null) {
+                        let fundsTitle = document.createElement("li")
+                        fundsTitle.innerHTML = `<label><b>Grant Title:</b> </label>${grant.title}`
+                        let fundsUrl = document.createElement("li")
+                        fundsUrl.innerHTML = `<label><b>Grant URL:</b> </label><a href=${grant.url} target="_blank">${grant.url}</a>`
+                        let fundsDate = document.createElement("li")
+                        fundsDate.innerHTML = `<span>${grant.content.slice(0, 21)}</span>`
+
+                        let ul = document.createElement("ul")
+
+                        let fundsNgosObj = {
+                            title: grant.title,
+                            url: grant.url,
+                            date: grant.content.slice(0, 21)
+                        }
+
+                        fundsNgosArr.push(fundsNgosObj)
+
+                        localStorage.setItem("fundsForNgos", JSON.stringify(fundsNgosArr))
+
+                        ul.append(fundsTitle, fundsUrl, fundsDate)
+                        grantCard.appendChild(ul)
+                        listGrants.appendChild(grantCard)
+                    }
+
+
+                })
+
+                console.log(data)
+                return data
+            }
+        } catch (error) {
+            console.error("Error", error)
+            listGrants.innerHTML = ""
+            let noGrant = document.createElement("p")
+            noGrant.setAttribute("class", "no-grant")
+            noGrant.textContent = "The grant scraper is not available at the moment."
+            listEvents.appendChild(noGrant)
         }
     }
 
@@ -233,79 +251,88 @@ grants.addEventListener("change", () => {
 
     //africanNgosButton.addEventListener("click", async () => {
     async function populateAfricanNgos() {
-        if (selectedValue === "africanngos") {
-            listEvents.innerHTML = ""
+        try {
+            if (selectedValue === "africanngos") {
+                listEvents.innerHTML = ""
 
-            let loaded = false
+                let loaded = false
 
-            console.log(loaded)
+                console.log(loaded)
 
-            if (loaded === false) {
-                listGrants.innerHTML = ""
-                let loadingGrant = document.createElement("p")
-                loadingGrant.setAttribute("class", "loading-grant")
-                loadingGrant.textContent = "Loading Grant ...."
-                listGrants.appendChild(loadingGrant)
-            }
-
-
-            const response = await fetch(`${API_URL}/africanngos`)
-
-            if (!response.ok) {
-                console.log(`HTTP SERVER ERROR, ${response.status}`)
-            }
-
-            const responseData = await response.json()
-
-            let data = responseData.data
-
-            let africanNgosArr = []
-
-            listGrants.innerHTML = ""
-
-            data.forEach((grant) => {
-                let grantCard = document.createElement("div")
-                grantCard.setAttribute("class", "grant-card")
-
-                let africanNgoTitle = document.createElement("li")
-                let africanNgoUrl = document.createElement("li")
-                let africanNgoContent = document.createElement("div")
-
-                //console.log(grant.title)
-
-                let title = []
-
-                if (title !== null && grant.url !== null && grant.content !== null) {
-                    title.push(grant.title)
-                    console.log(title)
-
-                    africanNgoTitle.innerHTML = `<label><b>Grant Title:</b> </label> ${title}`
-                    africanNgoUrl.innerHTML = `<label><b>Grant URL:</b> </label><a href=${grant.url} target="_blank">${grant.url}</a>`
-                    africanNgoContent.innerHTML = `<p style="white-space: pre-line">${grant.content}</p><br>`
-
-
-                    let ul = document.createElement("ul")
-
-                    let africanNgosObj = {
-                        title: grant.title,
-                        url: grant.url,
-                        content: grant.content
-                    }
-
-                    africanNgosArr.push(africanNgosObj)
-
-                    localStorage.setItem("africanNgos", JSON.stringify(africanNgosArr))
-
-                    ul.append(africanNgoTitle, africanNgoUrl, africanNgoContent)
-                    grantCard.appendChild(ul)
-
-                    listGrants.appendChild(grantCard)
+                if (loaded === false) {
+                    listGrants.innerHTML = ""
+                    let loadingGrant = document.createElement("p")
+                    loadingGrant.setAttribute("class", "loading-grant")
+                    loadingGrant.textContent = "Loading Grant ...."
+                    listGrants.appendChild(loadingGrant)
                 }
-            })
 
-            console.log(data)
-            return data
 
+                const response = await fetch(`${API_URL}/africanngos`)
+
+                if (!response.ok) {
+                    console.log(`HTTP SERVER ERROR, ${response.status}`)
+                }
+
+                const responseData = await response.json()
+
+                let data = responseData.data
+
+                let africanNgosArr = []
+
+                listGrants.innerHTML = ""
+
+                data.forEach((grant) => {
+                    let grantCard = document.createElement("div")
+                    grantCard.setAttribute("class", "grant-card")
+
+                    let africanNgoTitle = document.createElement("li")
+                    let africanNgoUrl = document.createElement("li")
+                    let africanNgoContent = document.createElement("div")
+
+                    //console.log(grant.title)
+
+                    let title = []
+
+                    if (title !== null && grant.url !== null && grant.content !== null) {
+                        title.push(grant.title)
+                        console.log(title)
+
+                        africanNgoTitle.innerHTML = `<label><b>Grant Title:</b> </label> ${title}`
+                        africanNgoUrl.innerHTML = `<label><b>Grant URL:</b> </label><a href=${grant.url} target="_blank">${grant.url}</a>`
+                        africanNgoContent.innerHTML = `<p style="white-space: pre-line">${grant.content}</p><br>`
+
+
+                        let ul = document.createElement("ul")
+
+                        let africanNgosObj = {
+                            title: grant.title,
+                            url: grant.url,
+                            content: grant.content
+                        }
+
+                        africanNgosArr.push(africanNgosObj)
+
+                        localStorage.setItem("africanNgos", JSON.stringify(africanNgosArr))
+
+                        ul.append(africanNgoTitle, africanNgoUrl, africanNgoContent)
+                        grantCard.appendChild(ul)
+
+                        listGrants.appendChild(grantCard)
+                    }
+                })
+
+                console.log(data)
+                return data
+
+            }
+        } catch (error) {
+            console.error('Error', error)
+            listGrants.innerHTML = ""
+            let noGrant = document.createElement("p")
+            noGrant.setAttribute("class", "no-grant")
+            noGrant.textContent = "The grant scraper is not available at the moment."
+            listEvents.appendChild(noGrant)
         }
     }
 
@@ -383,6 +410,11 @@ grants.addEventListener("change", () => {
 
             } catch (error) {
                 console.log('Error', error)
+                listGrants.innerHTML = ""
+                let noGrant = document.createElement("p")
+                noGrant.setAttribute("class", "no-grant")
+                noGrant.textContent = "The grant scraper is not available at the moment."
+                listEvents.appendChild(noGrant)
             }
         }
     }
@@ -475,6 +507,11 @@ grants.addEventListener("change", () => {
 
             } catch (error) {
                 console.log('Error', error)
+                listGrants.innerHTML = ""
+                let noGrant = document.createElement("p")
+                noGrant.setAttribute("class", "no-grant")
+                noGrant.textContent = "The grant scraper is not available at the moment."
+                listEvents.appendChild(noGrant)
             }
         }
     }
@@ -569,6 +606,11 @@ grants.addEventListener("change", () => {
                 })
             } catch (error) {
                 console.log('Error', error)
+                listGrants.innerHTML = ""
+                let noGrant = document.createElement("p")
+                noGrant.setAttribute("class", "no-grant")
+                noGrant.textContent = "The grant scraper is not available at the moment."
+                listEvents.appendChild(noGrant)
             }
         }
     }
@@ -686,12 +728,12 @@ async function searchGrants() {
 
     let fundsNgosTitle = []
 
-   
+
     for (let grant of fundsForNgos) {
         fundsNgosTitle.push(grant)
     }
 
-    
+
 
     fundsNgosTitle.filter((grant) => {
         let modifiedFundsTitle = grant.title.toLowerCase()
@@ -852,7 +894,7 @@ async function searchGrants() {
         trustAfricaArr.push(grant)
     }
 
-    
+
     //listGrants.innerHTML = ""
 
     trustAfricaArr.filter((grant) => {
@@ -936,7 +978,7 @@ async function searchGrants() {
         console.log(year)
 
         if (modifiedDaTitle.includes(inputValue) || year.includes(inputValue)) {
-            
+
 
             let grantCard = document.createElement("div")
             grantCard.setAttribute("class", "grant-card")
