@@ -568,7 +568,7 @@ grants.addEventListener("change", () => {
 
                         if (grant.content !== null) {
                             let trustAfricaContent = document.createElement("li")
-                            trustAfricaContent.innerHTML = `<label><b>Grant Content:</b> </label><p>${grant.content}</p>`
+                            trustAfricaContent.innerHTML = `<p>${grant.content}</p>`
                             ul.appendChild(trustAfricaContent)
                         }
 
@@ -658,6 +658,7 @@ async function searchGrants() {
 
     let govGrantTitle = []
 
+    grantsFound = true
     for (let grant of govGrants) {
         govGrantTitle.push(grant)
     }
@@ -700,7 +701,7 @@ async function searchGrants() {
             listGrants.appendChild(grantCard)
 
             //change status of grants Found to true to display message if no grants are found
-            grantsFound = true
+            
         }
 
         //if no grants are found display message that no grants are found

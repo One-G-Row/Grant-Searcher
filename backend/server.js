@@ -43,7 +43,7 @@ app.get('/api/funds-for-ngos', async (req, res) => {
             { timeout: 60000 }
         )
 
-        await page.waitForSelector("h2", {
+        await page.waitForSelector("article.post", {
             timeout: 10000
         })
 

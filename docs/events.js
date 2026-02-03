@@ -18,6 +18,8 @@ selectEvents.addEventListener("change", () => {
 
     listGrants.innerHTML = ""
 
+    
+
     async function populateEventsBrite() {
         if (selectedEvent === "eventsbrite") {
             
@@ -217,10 +219,10 @@ selectEvents.addEventListener("change", () => {
                     const location = document.createElement("span")
 
                     if (event.title !== null && event.url !== null && event.date !== null) {
-                        title.innerHTML = `<Label><b>Title: </b></Label>${event.title}`
-                        url.innerHTML = `<Label><b>Link: </b></Label><a href=${event.url}>${event.url}</a><br/>`
-                        date.innerHTML = `<Label><b>Date: </b></Label>${event.date}<br/>`
-                        location.innerHTML = `<Label><b>Location: </b></Label>${event.location}<br/>`
+                        title.innerHTML = `<a href=${event.url}>${event.title}</a>`
+                        // url.innerHTML = `<Label><b>Link: </b></Label><a href=${event.url}>${event.url}</a><br/>`
+                        date.innerHTML = `${calendarIcon} ${event.date}<br/>`
+                        location.innerHTML = `${locationIcon} ${event.location}<br/>`
 
                         const iconferencesObj = {
                             title: event.title,
@@ -612,6 +614,29 @@ async function searchEvents() {
 
     })
 }
+
+//populate all events when events option is selected
+async function populateAllEvents(){
+        if (selectedEvent === "events"){
+            try{
+                let loaded = false
+
+                console.log(loaded)
+
+                if (loaded === false) {
+                    listEvents.innerHTML = ""
+                    let loadingEvent = document.createElement("p")
+                    loadingEvent.setAttribute("class", "loading-event")
+                    loadingEvent.textContent = "Loading Event ...."
+                    listEvents.appendChild(loadingEvent)
+                }
+
+
+            }catch(error){
+                console.log("Error", error)
+            }
+        }
+    }
 
 //use event click and keypress to search for events
 let searchButton = document.querySelector(".search-button-events")
