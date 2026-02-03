@@ -69,14 +69,14 @@ button{
     width: 40vw;
     border: 1px solid #adacac;
     border-radius: 12px;
-    padding: 1rem 2rem;
+    padding: 1.2rem 2rem;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* style search button */
 .search-button, .search-button-events{
     position: absolute;
-    top: 15vh;
+    top: 15.5vh;
     left: 52vw;
     height: 30px;
     padding: 10px;
@@ -96,7 +96,7 @@ button{
 
 .search-button-events{
 position: absolute;
-top: 15vh;
+top: 15.5vh;
     left: 60vw;
 }
 
