@@ -23,87 +23,87 @@ selectEvents.addEventListener("change", () => {
 
 
 
-    async function populateEventsBrite() {
-        if (selectedEvent === "eventsbrite") {
-            listEvents.innerHTML = ""
-            try {
-                let loaded = false
+    //async function populateEventsBrite() {
+    //     if (selectedEvent === "eventsbrite") {
+    //         listEvents.innerHTML = ""
+    //         try {
+    //             let loaded = false
 
-                console.log(loaded)
+    //             console.log(loaded)
 
-                if (loaded === false) {
-                    listEvents.innerHTML = ""
-                    let loadingEvent = document.createElement("p")
-                    loadingEvent.setAttribute("class", "loading-event")
-                    loadingEvent.textContent = "Loading Event ...."
-                    listEvents.appendChild(loadingEvent)
-                }
+    //             if (loaded === false) {
+    //                 listEvents.innerHTML = ""
+    //                 let loadingEvent = document.createElement("p")
+    //                 loadingEvent.setAttribute("class", "loading-event")
+    //                 loadingEvent.textContent = "Loading Event ...."
+    //                 listEvents.appendChild(loadingEvent)
+    //             }
 
-                const response = await fetch(`${API_URL}/eventsbrite`)
+    //             const response = await fetch(`${API_URL}/eventsbrite`)
 
-                if (!response.ok) {
-                    console.error(`HTTP Server Error ${response.status}`)
-                }
+    //             if (!response.ok) {
+    //                 console.error(`HTTP Server Error ${response.status}`)
+    //             }
 
-                const responseData = await response.json()
+    //             const responseData = await response.json()
 
-                const data = responseData.data
+    //             const data = responseData.data
 
-                const eventsbriteArr = []
+    //             const eventsbriteArr = []
 
-                listEvents.innerHTML = ""
+    //             listEvents.innerHTML = ""
 
-                data.forEach((event) => {
-                    const eventCard = document.createElement("div")
-                    eventCard.setAttribute("class", "event-card")
+    //             data.forEach((event) => {
+    //                 const eventCard = document.createElement("div")
+    //                 eventCard.setAttribute("class", "event-card")
 
-                    const title = document.createElement("h4")
-                    const url = document.createElement("a")
-                    const date = document.createElement("span")
-                    const price = document.createElement("span")
+    //                 const title = document.createElement("h4")
+    //                 const url = document.createElement("a")
+    //                 const date = document.createElement("span")
+    //                 const price = document.createElement("span")
 
-                    if (event.title !== null && event.url !== null && event.date !== null && event.price !== null) {
-                        title.innerHTML = `<a href=${event.url} target="_blank">${event.title}</a>`
-                        // url.innerHTML = `<Label><b>Link: </b></Label><a href=${event.url} target="_blank">${event.url}</a><br/>`
-                        date.innerHTML = `${calendarIcon} ${event.date}<br/>`
-                        price.innerHTML = `${moneyIcon} ${event.price}<br/>`
+    //                 if (event.title !== null && event.url !== null && event.date !== null && event.price !== null) {
+    //                     title.innerHTML = `<a href=${event.url} target="_blank">${event.title}</a>`
+    //                     // url.innerHTML = `<Label><b>Link: </b></Label><a href=${event.url} target="_blank">${event.url}</a><br/>`
+    //                     date.innerHTML = `${calendarIcon} ${event.date}<br/>`
+    //                     price.innerHTML = `${moneyIcon} ${event.price}<br/>`
 
-                        const eventsbriteObj = {
-                            title: event.title,
-                            url: event.url,
-                            date: event.date,
-                            price: event.price
-                        }
+    //                     const eventsbriteObj = {
+    //                         title: event.title,
+    //                         url: event.url,
+    //                         date: event.date,
+    //                         price: event.price
+    //                     }
 
-                        eventsbriteArr.push(eventsbriteObj)
-                        localStorage.setItem("eventsbrite", JSON.stringify(eventsbriteArr))
-                        //localStorage.removeItem("eventsbrite")
+    //                     eventsbriteArr.push(eventsbriteObj)
+    //                     localStorage.setItem("eventsbrite", JSON.stringify(eventsbriteArr))
+    //                     //localStorage.removeItem("eventsbrite")
 
 
-                        eventCard.append(title, url, date, price)
-                        listEvents.appendChild(eventCard)
-                    }
+    //                     eventCard.append(title, url, date, price)
+    //                     listEvents.appendChild(eventCard)
+    //                 }
 
-                })
-            }
-            catch (error) {
-                console.error('Error', error)
-                listEvents.innerHTML = ""
-                let noEvent = document.createElement("p")
-                noEvent.setAttribute("class", "no-event")
-                noEvent.textContent = "The event scraper is not available at the moment."
-                listEvents.appendChild(noEvent)
-            }
+    //             })
+    //         }
+    //         catch (error) {
+    //             console.error('Error', error)
+    //             listEvents.innerHTML = ""
+    //             let noEvent = document.createElement("p")
+    //             noEvent.setAttribute("class", "no-event")
+    //             noEvent.textContent = "The event scraper is not available at the moment."
+    //             listEvents.appendChild(noEvent)
+    //         }
 
-        }
-        else {
-            listEvents.innerHTML = ""
-            let loadingEvent = document.createElement("p")
-            loadingEvent.setAttribute("class", "loading-event")
-            loadingEvent.textContent = "Loading Event ...."
-            listEvents.appendChild(loadingEvent)
-        }
-    }
+    //     }
+    //     else {
+    //         listEvents.innerHTML = ""
+    //         let loadingEvent = document.createElement("p")
+    //         loadingEvent.setAttribute("class", "loading-event")
+    //         loadingEvent.textContent = "Loading Event ...."
+    //         listEvents.appendChild(loadingEvent)
+    //     }
+    // }
 
     async function populateDevEvents() {
         if (selectedEvent === "devevents") {
@@ -455,41 +455,41 @@ async function searchEvents() {
     console.log(inputValue)
 
     //search for eventsbrite events
-    let eventsbriteEvents = JSON.parse(localStorage.getItem("eventsbrite"))
-    //console.log(eventsbriteEvents)
+    // let eventsbriteEvents = JSON.parse(localStorage.getItem("eventsbrite"))
+    // //console.log(eventsbriteEvents)
 
-    let eventbriteArr = []
+    // let eventbriteArr = []
 
-    for (let event of eventsbriteEvents) {
-        eventbriteArr.push(event)
-    }
+    // for (let event of eventsbriteEvents) {
+    //     eventbriteArr.push(event)
+    // }
 
-    eventbriteArr.forEach((event) => {
-        let modifiedEventTitle = event.title.toLowerCase()
-        //modifiedEventTitle.toLowerCase()
+    // eventbriteArr.forEach((event) => {
+    //     let modifiedEventTitle = event.title.toLowerCase()
+    //     //modifiedEventTitle.toLowerCase()
 
-        const eventCard = document.createElement("div")
-        eventCard.setAttribute("class", "event-card")
+    //     const eventCard = document.createElement("div")
+    //     eventCard.setAttribute("class", "event-card")
 
-        if (modifiedEventTitle.includes(inputValue) || event.date.toLowerCase().includes(inputValue)) {
-            const title = document.createElement("h4")
-            const url = document.createElement("a")
-            const date = document.createElement("span")
-            const price = document.createElement("span")
+    //     if (modifiedEventTitle.includes(inputValue) || event.date.toLowerCase().includes(inputValue)) {
+    //         const title = document.createElement("h4")
+    //         const url = document.createElement("a")
+    //         const date = document.createElement("span")
+    //         const price = document.createElement("span")
 
-            title.innerHTML = `<a href=${event.url} target="_blank">${event.title}</a>`
-            // url.innerHTML = `<Label><b>Link: </b></Label><a href=${event.url} target="_blank">${event.url}</a><br/>`
-            date.innerHTML = `${calendarIcon} ${event.date}<br/>`
-            price.innerHTML = `${moneyIcon} ${event.price}<br/>`
+    //         title.innerHTML = `<a href=${event.url} target="_blank">${event.title}</a>`
+    //         // url.innerHTML = `<Label><b>Link: </b></Label><a href=${event.url} target="_blank">${event.url}</a><br/>`
+    //         date.innerHTML = `${calendarIcon} ${event.date}<br/>`
+    //         price.innerHTML = `${moneyIcon} ${event.price}<br/>`
 
-            console.log(title, url, date, price)
+    //         console.log(title, url, date, price)
 
-            eventCard.append(title, url, date, price)
-            listEvents.appendChild(eventCard)
-            eventsFound = true
-        }
+    //         eventCard.append(title, url, date, price)
+    //         listEvents.appendChild(eventCard)
+    //         eventsFound = true
+    //     }
 
-    })
+    // })
 
     //if no grants are found display message that no grants are found
     if (eventsFound === false) {
