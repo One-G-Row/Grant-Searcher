@@ -489,14 +489,6 @@ async function searchEvents() {
 
     // })
 
-    //if no grants are found display message that no grants are found
-    if (eventsFound === false) {
-        listEvents.innerHTML = ""
-        let noEvent = document.createElement("p")
-        noEvent.setAttribute("class", "no-event")
-        noEvent.textContent = "The search entry value is not present in the listed events."
-        listEvents.appendChild(noEvent)
-    }
 
     //search for devevents
 
@@ -535,14 +527,6 @@ async function searchEvents() {
 
     })
 
-    //if no grants are found display message that no grants are found
-    if (eventsFound === false) {
-        listEvents.innerHTML = ""
-        let noEvent = document.createElement("p")
-        noEvent.setAttribute("class", "no-event")
-        noEvent.textContent = "The search entry value is not present in the listed events."
-        listEvents.appendChild(noEvent)
-    }
     //search afor tentimes events
 
     console.log(tentimesEvents)
@@ -580,14 +564,6 @@ async function searchEvents() {
         }
 
     })
-    //if no grants are found display message that no grants are found
-    if (eventsFound === false) {
-        listEvents.innerHTML = ""
-        let noEvent = document.createElement("p")
-        noEvent.setAttribute("class", "no-event")
-        noEvent.textContent = "The search entry value is not present in the listed events."
-        listEvents.appendChild(noEvent)
-    }
 
     //search for international conferences
 
@@ -623,14 +599,6 @@ async function searchEvents() {
         }
 
     })
-    //if no grants are found display message that no grants are found
-    if (eventsFound === false) {
-        listEvents.innerHTML = ""
-        let noEvent = document.createElement("p")
-        noEvent.setAttribute("class", "no-event")
-        noEvent.textContent = "The search entry value is not present in the listed events."
-        listEvents.appendChild(noEvent)
-    }
 
     //search for conference alerts
 

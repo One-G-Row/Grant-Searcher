@@ -703,14 +703,6 @@ async function searchGrants() {
             grantsFound = true
         }
     })
-    //if no grants are found display message that no grants are found
-    if (grantsFound === false) {
-        listGrants.innerHTML = ""
-        let noGrant = document.createElement("p")
-        noGrant.setAttribute("class", "no-grant")
-        noGrant.textContent = "The search entry value is not present in the listed grants."
-        listGrants.appendChild(noGrant)
-    }
 
 
     // let response = await fetch(`${API_URL}/funds-for-ngos`)
@@ -764,14 +756,6 @@ async function searchGrants() {
             //listGrants.innerHTML = ""
         }
     })
-    //if no grants are found display message that no grants are found
-    if (grantsFound === false) {
-        listGrants.innerHTML = ""
-        let noGrant = document.createElement("p")
-        noGrant.setAttribute("class", "no-grant")
-        noGrant.textContent = "The search entry value is not present in the listed grants."
-        listGrants.appendChild(noGrant)
-    }
 
     //console.log(africanNgos)
 
@@ -824,14 +808,6 @@ async function searchGrants() {
             grantsFound = true
         }
     })
-    //if no grants are found display message that no grants are found
-    if (grantsFound === false) {
-        listGrants.innerHTML = ""
-        let noGrant = document.createElement("p")
-        noGrant.setAttribute("class", "no-grant")
-        noGrant.textContent = "The search entry value is not present in the listed grants."
-        listGrants.appendChild(noGrant)
-    }
 
     let instrumentlGrantArr = []
 
@@ -869,14 +845,7 @@ async function searchGrants() {
             grantsFound = true
         }
     })
-    //if no grants are found display message that no grants are found
-    if (grantsFound === false) {
-        listGrants.innerHTML = ""
-        let noGrant = document.createElement("p")
-        noGrant.setAttribute("class", "no-grant")
-        noGrant.textContent = "The search entry value is not present in the listed grants."
-        listGrants.appendChild(noGrant)
-    }
+
 
     let trustAfricaArr = []
 
@@ -940,14 +909,7 @@ async function searchGrants() {
 
         }
     })
-    //if no grants are found display message that no grants are found
-    if (grantsFound === false) {
-        listGrants.innerHTML = ""
-        let noGrant = document.createElement("p")
-        noGrant.setAttribute("class", "no-grant")
-        noGrant.textContent = "The search entry value is not present in the listed grants."
-        listGrants.appendChild(noGrant)
-    }
+  
 
     console.log(trustAfricaArr)
 
