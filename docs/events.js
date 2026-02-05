@@ -21,8 +21,6 @@ selectEvents.addEventListener("change", () => {
     listGrants.innerHTML = ""
 
 
-
-
     //async function populateEventsBrite() {
     //     if (selectedEvent === "eventsbrite") {
     //         listEvents.innerHTML = ""

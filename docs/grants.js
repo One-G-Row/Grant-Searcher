@@ -1162,14 +1162,17 @@ console.log(searchInput)
 //}
 populatePage()
 
-
 grants.addEventListener("click", () => {
     selectedValue = grants.value
     if (selectedValue === "grants") {
         listGrants.innerHTML = ""
         populatePage()
     }
-})
+})    
+   
+
+
+
 
 //create a paginated table 
 const paginator = new Paginator({
