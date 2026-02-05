@@ -1,80 +1,85 @@
-body{
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.header-title{
-font-size: 24pt;
-text-align: center;
+.header-title {
+    font-size: 24pt;
+    text-align: center;
 }
 
-a{
-    text-decoration:none;
+a {
+    text-decoration: none;
 }
 
-a:hover{
-    text-decoration:underline;
+a:hover {
+    text-decoration: underline;
 }
 
-.grant-card, .event-card{
+.grant-card,
+.event-card {
     width: 70vw;
-    height: auto; 
+    height: auto;
     margin: 0.5rem auto;
     padding: 0.5rem 1rem;
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
 }
 
-.event-card{
+.event-card {
     width: 60vw;
     margin: 0.5rem auto;
 }
 
-.title-container, .opendate-container, .closedate-container, .agency-container{
+.title-container,
+.opendate-container,
+.closedate-container,
+.agency-container {
     display: flex;
 }
 
-.grant-ul{
+.grant-ul {
     list-style-type: none;
     /* box-shadow: 1px 10px 8px #888888; */
     margin: 1rem;
     padding: 1rem;
 }
 
-li{
+li {
     list-style-type: none;
 }
 
-button{
-  display: inline-flex;
+button {
+    display: inline-flex;
     padding: 10px;
     border: 1px solid #000;
     border-radius: 4px;
     margin: 0 0.5rem;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     cursor: pointer;
 }
 
 /* style ul search of gov grants */
-.list-grants{
+.list-grants {
     display: block;
     text-align: left;
 }
 
 /* center the buttons and search section */
-.search-section{
+.search-section {
     margin: 1rem 20rem;
 }
 
 /* style search input field */
-.search-input{
+.search-input {
     width: 40vw;
     border: 1px solid #adacac;
     border-radius: 12px;
     padding: 1.2rem 2rem;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* style search button */
-.search-button, .search-button-events{
+.search-button,
+.search-button-events {
     position: absolute;
     top: 15.5vh;
     left: 52vw;
@@ -94,13 +99,14 @@ button{
     cursor: pointer;
 }
 
-.search-button-events{
-position: absolute;
-top: 15.5vh;
+.search-button-events {
+    position: absolute;
+    top: 15.5vh;
     left: 60vw;
 }
 
-.search-button:hover, .search-button-events:hover{
+.search-button:hover,
+.search-button-events:hover {
     background-color: aliceblue;
 }
 
@@ -110,116 +116,122 @@ top: 15.5vh;
     border: 1px solid #000;
 } */
 
-.list-grants{
+.list-grants {
     margin: 2rem 14rem;
 }
 
-.loading-event{
+.loading-event {
     margin: 1rem 40vw;
     font-weight: bold;
 }
 
-.loading-grant{
+.loading-grant {
     display: inline-flex;
-     margin: 1rem 25vw;
+    margin: 1rem 25vw;
     font-weight: bold;
 }
 
-.title{
+.title {
     font-weight: bold;
 }
 
-.buttons-section{
-        margin: 1rem 20rem;
+.buttons-section {
+    margin: 1rem 20rem;
 
 }
 
-.buttons-section button{
+.buttons-section button {
     background-color: #fff;
 
 }
 
-#select-grants, #select-events{
-padding: 10px 50px;
-border-radius: 5px;
-margin-right: 10px;
+#select-grants,
+#select-events {
+    padding: 10px 50px;
+    border-radius: 5px;
+    margin-right: 10px;
 }
 
 
-option:hover{
+option:hover {
     background-color: #000;
     color: #fff;
     cursor: pointer;
 }
 
-.no-grant{
+.no-grant {
     font-weight: bold;
-    text-align:  center;
+    text-align: center;
 }
 
-.no-event{
+.no-event {
     font-weight: bold;
-    text-align:  center;
+    text-align: center;
 }
 
 
-@media(max-width: 840px){
-    .search-button, .search-button-events{
+@media(max-width: 840px) {
+
+    .search-button,
+    .search-button-events {
         position: absolute;
         top: 6rem;
         left: 32rem;
     }
-    .search-button-events{
+
+    .search-button-events {
         margin-left: 7rem;
     }
 }
 
-@media(max-width: 480px){
-    .search-section, .buttons-section{
+@media(max-width: 480px) {
+
+    .search-section,
+    .buttons-section {
         margin: 1rem;
     }
 
-    .buttons-section{
+    .buttons-section {
         margin-top: 3rem;
     }
-    
-    .buttons-section #select-grants{
+
+    .buttons-section #select-grants {
         margin: 1rem 0;
     }
 
-    .list-grants{
+    .list-grants {
         margin-left: -1.8rem;
         width: 100vw;
     }
 
-    .search-button{
+    .search-button {
         position: absolute;
-        top: 20vh;
+        top: 22vh;
         left: 1.2rem;
     }
 
-    .search-button-events{
-position: absolute;
-top: 20vh;
-    left: 2rem;
-}
+    .search-button-events {
+        position: absolute;
+        top: 22vh;
+        left: 2rem;
+    }
 
-    .buttons-section button{
+    .buttons-section button {
         margin-bottom: 1rem;
     }
 
-    .search-input{
+    .search-input {
         width: 70vw;
         height: 4vh;
     }
 
-    .no-grant{
+    .no-grant {
         margin-left: 3rem;
         display: inline-flex;
 
     }
 
-   .grant-card{
-    width: 85vw;
-   }
+    .grant-card {
+        width: 85vw;
+    }
 }
