@@ -182,11 +182,17 @@ app.get('/api/instrumentl', async (req, res) => {
                 const title = headerContainer.querySelector("h3")
                 const linkContainer = headerContainer.querySelector("h3")
                 const link = linkContainer.querySelector("a")
+                const contentContainer = el.querySelector(".description")
+                const amount = contentContainer ? contentContainer.querySelector("span.amount") : null
+                const content = contentContainer ? contentContainer.querySelector("div.body") : null
 
                 return {
                     title: title ? title.title : null,
                     url: link ? link.href : null,
-                    deadline: deadline ? deadline.textContent : null
+                    deadline: deadline ? deadline.textContent : null,
+                    content: content ? content.textContent.trim() : null,
+                    amount: amount ? amount.textContent.trim() : null
+
                 }
             }
             )

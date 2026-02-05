@@ -8,12 +8,16 @@ console.log(listGrants)
 const listEvents = document.querySelector(".list-events")
 
 
-const API_URL = "https://grant-searcher-backend.onrender.com/api" || "http://127.0.0.1:3000/api"
-//const API_URL = "http://127.0.0.1:3000/api"
+//const API_URL = "https://grant-searcher-backend.onrender.com/api" || "http://127.0.0.1:3000/api"
+const API_URL = "http://127.0.0.1:3000/api"
 
 
 //get the option values selected in the select element box
 let selectedValue = ""
+
+const calendarIcon = '📅'
+const locationIcon = '📍'
+const moneyIcon = '💰'
 
 const grants = document.querySelector("#select-grants")
 grants.addEventListener("change", () => {
@@ -385,28 +389,34 @@ grants.addEventListener("change", () => {
                     let instrumenlTitle = document.createElement("li")
                     instrumenlTitle.innerHTML = `<a href=${grant.url} target="_blank"> ${grant.title}</a>`
                     let instrumenlContent = document.createElement("p")
-                    instrumenlContent.textContent = `${body}`
+                    instrumenlContent.textContent = `${grant.content}`
+                    let instrumenlAmount = document.createElement("li")
+                    instrumenlAmount.innerHTML = `${moneyIcon}<span>${grant.amount}</span>`
                     let instrumenlLink = document.createElement("li")
+                    
                     //instrumenlLink.innerHTML = `<label><b>Grant URL:</b> </label><a href=${grant.url} target="_blank">${grant.url}</a>`
                     let instrumenlDate = document.createElement("li")
 
                     let grantDeadline = grant.deadline === null ? "Rolling Deadline" : `${grant.deadline}`
-                    instrumenlDate.innerHTML = `<label><b>Deadline:</b> </label><span>${grantDeadline}</span>`
+                    instrumenlDate.innerHTML = `${calendarIcon}<span>${grantDeadline}</span>`
 
                     let ul = document.createElement("ul")
 
                     let instrumenlObj = {
                         title: grant.title,
+                        content: grant.content,
                         url: grant.url,
-                        deadline: grantDeadline
+                        deadline: grantDeadline,
+                        amount: grant.amount
                     }
 
                     instrumenlArr.push(instrumenlObj)
 
                     localStorage.setItem("instrumentl", JSON.stringify(instrumenlArr))
+                    //localStorage.removeItem("instrumentl")
 
                     if (grant.url !== null && grant.title !== null) {
-                        ul.append(instrumenlTitle, instrumenlLink, instrumenlDate)
+                        ul.append(instrumenlTitle, instrumenlContent, instrumenlAmount, instrumenlLink, instrumenlDate)
                         grantCard.appendChild(ul)
                         listGrants.appendChild(grantCard)
                     }
@@ -841,12 +851,16 @@ async function searchGrants() {
             let title = document.createElement("li")
             title.setAttribute("class", "title")
             title.innerHTML = `<a href=${grant.url} target="_blank">${grant.title}</a>`
+            let content = document.createElement("p")
+            content.textContent = `${grant.content}`
+                    let amount = document.createElement("li")
+                    amount.innerHTML = `${moneyIcon}<span>${grant.amount}</span>`
             let url = document.createElement("li")
             //url.innerHTML = `<label>Grant URL: </label><a href=${grant.url} target="_blank">${grant.url}</a>`
             let deadline = document.createElement("li")
-            deadline.innerHTML = `<label>Grant Deadline: </label><span>${grant.deadline}</span>`
+            deadline.innerHTML = `${calendarIcon}<span>${grant.deadline}</span>`
 
-            listInstrumentlGrants.append(title, url, deadline)
+            listInstrumentlGrants.append(title, content, amount, url, deadline)
             grantCard.appendChild(listInstrumentlGrants)
 
             listGrants.appendChild(grantCard)
@@ -1071,12 +1085,16 @@ function populatePage() {
             let title = document.createElement("li")
             title.setAttribute("class", "title")
             title.innerHTML = `<a href=${grant.url} target="_blank">${grant.title}</a>`
+            let content = document.createElement("p")
+            content.textContent = `${grant.content}`
+                    let amount = document.createElement("li")
+                    amount.innerHTML = `<span>${grant.amount}</span>`
             let url = document.createElement("li")
             //url.innerHTML = `<label>Grant URL: </label><a href=${grant.url} target="_blank">${grant.url}</a>`
             let deadline = document.createElement("li")
             deadline.innerHTML = `<label>Grant Deadline: </label><span>${grant.deadline}</span>`
 
-            listInstrumentlGrants.append(title, url, deadline)
+            listInstrumentlGrants.append(title, content, amount, url, deadline)
             grantCard.appendChild(listInstrumentlGrants)
 
             listGrants.appendChild(grantCard)
