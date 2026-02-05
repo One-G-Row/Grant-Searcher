@@ -194,13 +194,13 @@ option:hover{
 
     .search-button{
         position: absolute;
-        top: 28vh;
+        top: 20vh;
         left: 1.2rem;
     }
 
     .search-button-events{
 position: absolute;
-top: 28vh;
+top: 20vh;
     left: 2rem;
 }
 
