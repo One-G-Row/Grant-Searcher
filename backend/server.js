@@ -39,7 +39,8 @@ app.get('/api/funds-for-ngos', async (req, res) => {
         const page = await browser.newPage()
 
         await page.goto(
-            'https://www2.fundsforngos.org/category/information-technology/',
+            'https://www2.fundsforngos.org/tag/funding-opportunities-and-resources-in-kenya/',
+            //'https://www2.fundsforngos.org/category/information-technology/',
             { timeout: 60000 }
         )
 

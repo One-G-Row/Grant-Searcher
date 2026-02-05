@@ -179,6 +179,14 @@ option:hover{
         margin: 1rem;
     }
 
+    .buttons-section{
+        margin-top: 3rem;
+    }
+    
+    .buttons-section #select-grants{
+        margin: 1rem 0;
+    }
+
     .list-grants{
         margin-left: -1.8rem;
         width: 100vw;
@@ -186,9 +194,15 @@ option:hover{
 
     .search-button{
         position: absolute;
-        top: 5.5rem;
-        left: 18rem;
+        top: 28vh;
+        left: 1.2rem;
     }
+
+    .search-button-events{
+position: absolute;
+top: 28vh;
+    left: 2rem;
+}
 
     .buttons-section button{
         margin-bottom: 1rem;
