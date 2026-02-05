@@ -422,7 +422,7 @@ selectEvents.addEventListener("change", () => {
 
     }
 
-    populateEventsBrite()
+    //populateEventsBrite()
     populateDevEvents()
     populateInternationalConferences()
     populateConferencesAlerts()
