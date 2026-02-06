@@ -223,6 +223,7 @@ option:hover {
     .search-input {
         width: 70vw;
         height: 4vh;
+        padding: 1rem;
     }
 
     .no-grant {
