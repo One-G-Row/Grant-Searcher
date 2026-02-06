@@ -26,23 +26,23 @@ margin-left: 10px;
 
 @keyframes loading{
 0%{
-  border: 4px solid gray; 
+  border: 4px solid #fff; 
 }
 
 25%{
-    border-right: 4px solid #fff;
+    border-right: 4px solid gray;
 }
 
 50%{
-    border-bottom: 4px solid #fff;  
+    border-bottom: 4px solid gray;
 }
 
 75%{
-    border-left: 4px solid #fff;  
+    border-left: 4px solid gray;  
 }
 
 100%{
-    border-top: 4px solid #fff;
+    border-top: 4px solid gray;
 }
 
 }
