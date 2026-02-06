@@ -19,6 +19,9 @@ const calendarIcon = '📅'
 const locationIcon = '📍'
 const moneyIcon = '💰'
 
+const loading = document.createElement("div")
+loading.setAttribute("class", "loading")
+
 const grants = document.querySelector("#select-grants")
 grants.addEventListener("change", () => {
     selectedValue = grants.value
@@ -72,7 +75,8 @@ grants.addEventListener("change", () => {
 
                     let loadingGrant = document.createElement("p")
                     loadingGrant.setAttribute("class", "loading-grant")
-                    loadingGrant.textContent = "Loading Grant ...."
+                    loadingGrant.innerHTML = `<span>Loading Grant</span>`
+                    loadingGrant.appendChild(loading)
                     listGrants.appendChild(loadingGrant)
                 }
 
@@ -179,7 +183,8 @@ grants.addEventListener("change", () => {
                     listGrants.innerHTML = ""
                     let loadingGrant = document.createElement("p")
                     loadingGrant.setAttribute("class", "loading-grant")
-                    loadingGrant.textContent = "Loading Grant ...."
+                    loadingGrant.innerHTML = `<span>Loading Grant</span>`
+                    loadingGrant.appendChild(loading)
                     listGrants.appendChild(loadingGrant)
                 }
 
@@ -272,7 +277,8 @@ grants.addEventListener("change", () => {
                     listGrants.innerHTML = ""
                     let loadingGrant = document.createElement("p")
                     loadingGrant.setAttribute("class", "loading-grant")
-                    loadingGrant.textContent = "Loading Grant ...."
+                    loadingGrant.innerHTML = `<span>Loading Grant</span>`
+                    loadingGrant.appendChild(loading)
                     listGrants.appendChild(loadingGrant)
                 }
 
@@ -364,7 +370,8 @@ grants.addEventListener("change", () => {
                     listGrants.innerHTML = ""
                     let loadingGrant = document.createElement("p")
                     loadingGrant.setAttribute("class", "loading-grant")
-                    loadingGrant.textContent = "Loading Grant ...."
+                    loadingGrant.innerHTML = `<span>Loading Grant</span>`
+                    loadingGrant.appendChild(loading)
                     listGrants.appendChild(loadingGrant)
                 }
 
@@ -451,7 +458,8 @@ grants.addEventListener("change", () => {
                     listGrants.innerHTML = ""
                     let loadingGrant = document.createElement("p")
                     loadingGrant.setAttribute("class", "loading-grant")
-                    loadingGrant.textContent = "Loading Grant ...."
+                    loadingGrant.innerHTML = `<span>Loading Grant</span>`
+                    loadingGrant.appendChild(loading)
                     listGrants.appendChild(loadingGrant)
                 }
 
@@ -549,7 +557,8 @@ grants.addEventListener("change", () => {
                     listGrants.innerHTML = ""
                     let loadingGrant = document.createElement("p")
                     loadingGrant.setAttribute("class", "loading-grant")
-                    loadingGrant.textContent = "Loading Grant ...."
+                    loadingGrant.innerHTML = `<span>Loading Grant</span>`
+                    loadingGrant.appendChild(loading)
                     listGrants.appendChild(loadingGrant)
                 }
 

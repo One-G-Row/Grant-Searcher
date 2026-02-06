@@ -11,6 +11,9 @@ const calendarIcon = '📅'
 const locationIcon = '📍'
 const moneyIcon = '💰'
 
+const loading = document.createElement("div")
+loading.setAttribute("class", "loading")
+
 //listens when an option is selected
 let selectEvents = document.querySelector("#select-events")
 
@@ -116,7 +119,8 @@ selectEvents.addEventListener("change", () => {
                     listEvents.innerHTML = ""
                     let loadingEvent = document.createElement("p")
                     loadingEvent.setAttribute("class", "loading-event")
-                    loadingEvent.textContent = "Loading Event ...."
+                    loadingEvent.innerHTML = `<span>Loading Event</span>`
+                    loadingEvent.appendChild(loading)
                     listEvents.appendChild(loadingEvent)
                 }
 
@@ -193,7 +197,8 @@ selectEvents.addEventListener("change", () => {
                     listEvents.innerHTML = ""
                     let loadingEvent = document.createElement("p")
                     loadingEvent.setAttribute("class", "loading-event")
-                    loadingEvent.textContent = "Loading Event ...."
+                    loadingEvent.innerHTML = `<span>Loading Event</span>`
+                    loadingEvent.appendChild(loading)
                     listEvents.appendChild(loadingEvent)
                 }
 
@@ -269,7 +274,8 @@ selectEvents.addEventListener("change", () => {
                     listEvents.innerHTML = ""
                     let loadingEvent = document.createElement("p")
                     loadingEvent.setAttribute("class", "loading-event")
-                    loadingEvent.textContent = "Loading Event ...."
+                    loadingEvent.innerHTML = `<span>Loading Event</span>`
+                    loadingEvent.appendChild(loading)
                     listEvents.appendChild(loadingEvent)
                 }
 
@@ -351,7 +357,8 @@ selectEvents.addEventListener("change", () => {
                     listEvents.innerHTML = ""
                     let loadingEvent = document.createElement("p")
                     loadingEvent.setAttribute("class", "loading-event")
-                    loadingEvent.textContent = "Loading Event ...."
+                    loadingEvent.innerHTML = `<span>Loading Event</span>`
+                    loadingEvent.appendChild(loading)
                     listEvents.appendChild(loadingEvent)
                 }
 

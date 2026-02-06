@@ -6,6 +6,41 @@ body {
     font-size: 24pt;
     text-align: center;
 }
+.loading-event, .loading{
+display: inline-flex;
+}
+
+.loading{
+border: 4px solid gray;
+width: 20px;
+height: 20px;
+border-radius: 50px;
+animation: loading 10s ease-in 1s infinite;
+margin-left: 10px;
+}
+
+@keyframes loading{
+0%{
+  border: 4px solid gray;  
+}
+
+25%{
+    border-bottom: 4px solid rgb(243, 242, 242);
+}
+
+50%{
+    border-left: 4px solid rgb(243, 242, 242);  
+}
+
+75%{
+    border-right: 4px solid rgb(243, 242, 242);  
+}
+
+100%{
+    border: 4px solid gray; 
+}
+
+}
 
 a {
     text-decoration: none;
@@ -223,7 +258,6 @@ option:hover {
     .search-input {
         width: 70vw;
         height: 4vh;
-        padding: 1rem;
     }
 
     .no-grant {
