@@ -6,7 +6,12 @@ body {
     font-size: 24pt;
     text-align: center;
 }
+
 .loading-event, .loading{
+display: inline-flex;
+}
+
+.loading-grant, .loading{
 display: inline-flex;
 }
 
@@ -156,7 +161,8 @@ button {
 }
 
 .loading-event {
-    margin: 1rem 40vw;
+    display: inline-flex;
+    margin: 1rem 25vw;
     font-weight: bold;
 }
 
