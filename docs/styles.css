@@ -162,7 +162,7 @@ button {
 
 .loading-event {
     display: inline-flex;
-    margin: 1rem 25vw;
+    margin: 1rem 40vw;
     font-weight: bold;
 }
 
@@ -231,6 +231,12 @@ option:hover {
     .buttons-section {
         margin: 1rem;
     }
+
+    .loading-event {
+    display: inline-flex;
+    margin: 1rem 25vw;
+    font-weight: bold;
+}
 
     .buttons-section {
         margin-top: 3rem;
