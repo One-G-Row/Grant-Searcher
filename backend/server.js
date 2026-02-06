@@ -458,7 +458,7 @@ app.get('/api/eventsbrite', async (req, res) => {
         )
 
         await page.waitForSelector("section.event-card-details", {
-            timeout: 60000
+            timeout: 100000
         })
 
 
@@ -521,7 +521,7 @@ app.get('/api/devevents', async (req, res) => {
         )
 
         await page.waitForSelector("div.row.columns.is-mobile", {
-            timeout: 60000
+            timeout: 100000
         })
 
 
@@ -582,7 +582,7 @@ app.get('/api/internationalconferences', async (req, res) => {
         )
 
         await page.waitForSelector("div.conf-list", {
-            timeout: 60000
+            timeout: 100000
         })
 
 
@@ -643,7 +643,7 @@ app.get('/api/conferencealerts', async (req, res) => {
         )
 
         await page.waitForSelector("tr.data", {
-            timeout: 60000
+            timeout: 100000
         })
 
 
@@ -708,7 +708,7 @@ app.get('/api/tentimes', async (req, res) => {
         await page.goto(
             'https://10times.com/kenya/technology',
             {
-                timeout: 60000,
+                timeout: 100000,
                 waitUntil: 'networkidle2'
             }
         )
