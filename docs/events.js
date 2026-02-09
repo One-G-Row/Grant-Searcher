@@ -1,4 +1,4 @@
-const API_URL = "https://grants.gtech-prc.org/" || "http://127.0.0.1:3000/api"
+const API_URL = "https://grants.gtech-prc.org/api" || "http://127.0.0.1:3000/api"
 //const API_URL = "http://127.0.0.1:3000/api"
 
 //import listGrants to clear grants section when you want to populate Events
