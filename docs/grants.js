@@ -8,7 +8,7 @@ console.log(listGrants)
 const listEvents = document.querySelector(".list-events")
 
 
-const API_URL = "https://grant-searcher-backend.onrender.com/api" || "http://127.0.0.1:3000/api"
+const API_URL = "https://grants.gtech-prc.org/" || "http://127.0.0.1:3000/api"
 //const API_URL = "http://127.0.0.1:3000/api"
 
 
