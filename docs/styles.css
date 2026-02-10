@@ -283,6 +283,7 @@ option:hover {
     }
 
     .event-card {
-        width: 95vw;
+        width: 100vw;
+        margin-left: -1rem;
     }
 }
