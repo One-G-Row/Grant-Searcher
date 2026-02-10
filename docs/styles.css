@@ -281,4 +281,8 @@ option:hover {
     .grant-card {
         width: 85vw;
     }
+
+    .event-card {
+        width: 85vw;
+    }
 }
