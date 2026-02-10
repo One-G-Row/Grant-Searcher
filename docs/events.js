@@ -226,7 +226,7 @@ selectEvents.addEventListener("change", () => {
                     const location = document.createElement("span")
 
                     if (event.title !== null && event.url !== null && event.date !== null) {
-                        title.innerHTML = `<a href=${event.url}>${event.title}</a>`
+                        title.innerHTML = `<a href=${event.url} target="_blank">${event.title}</a>`
                         // url.innerHTML = `<Label><b>Link: </b></Label><a href=${event.url}>${event.url}</a><br/>`
                         date.innerHTML = `${calendarIcon} ${event.date}<br/>`
                         location.innerHTML = `${locationIcon} ${event.location}<br/>`
