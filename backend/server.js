@@ -96,6 +96,11 @@ app.get('/api/africanngos', async (req, res) => {
             ]
         })
         const page = await browser.newPage()
+
+        //disable caching for the session 
+        // Disable cache for all requests
+        await page.setCacheEnabled(false);
+
         await page.goto(
             'https://africanngos.org/2026/02/08/african-ngo-funding-opportunities-february-march-2026/',
             { timeout: 60000 }
