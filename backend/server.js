@@ -97,7 +97,7 @@ app.get('/api/africanngos', async (req, res) => {
         })
         const page = await browser.newPage()
         await page.goto(
-            'https://africanngos.org/2025/12/03/african-ngo-funding-opportunities-december-2025-january-2026/',
+            'https://africanngos.org/2026/02/08/african-ngo-funding-opportunities-february-march-2026/',
             { timeout: 60000 }
         )
 

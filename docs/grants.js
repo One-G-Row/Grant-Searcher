@@ -328,7 +328,8 @@ grants.addEventListener("change", () => {
 
                         africanNgosArr.push(africanNgosObj)
 
-                        localStorage.setItem("africanNgos", JSON.stringify(africanNgosArr))
+                       //localStorage.setItem("africanNgos", JSON.stringify(africanNgosArr))
+                        localStorage.removeItem("africanNgos")
 
                         ul.append(africanNgoTitle, africanNgoUrl, africanNgoContent)
                         grantCard.appendChild(ul)
