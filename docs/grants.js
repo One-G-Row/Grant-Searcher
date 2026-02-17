@@ -1116,8 +1116,11 @@ function populatePage() {
         trustAfricaGrants.forEach((grant) => {
             let grantCard = document.createElement("div")
             grantCard.setAttribute("class", "grant-card")
+            
 
+            if (grant.title !== null && grant.content !== null && grant.amount !== null) {
             let listTaGrants = document.createElement("ul")
+            
 
             if (grant.title !== null) {
                 listTaGrants.setAttribute("class", "trust-africa-grants")
@@ -1144,10 +1147,11 @@ function populatePage() {
                 year.innerHTML = `<label>Grant Year: </label><span>${grant.year}</span>`
                 listTaGrants.appendChild(year)
             }
-
+        
             grantCard.appendChild(listTaGrants)
 
             listGrants.appendChild(grantCard)
+        }
         })
     }
 
