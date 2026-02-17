@@ -1119,7 +1119,7 @@ function populatePage() {
 
             let listTaGrants = document.createElement("ul")
 
-            if (grant.title !== null && grant.year >= 2025 ) {
+            if (grant.title !== null) {
                 listTaGrants.setAttribute("class", "trust-africa-grants")
                 let title = document.createElement("li")
                 title.setAttribute("class", "title")
@@ -1139,7 +1139,7 @@ function populatePage() {
                 listTaGrants.appendChild(trustAfricaAmount)
             }
 
-            if (grant.year !== null) {
+            if (grant.year !== null && grant.year >= 2025 ) {
                 let year = document.createElement("li")
                 year.innerHTML = `<label>Grant Year: </label><span>${grant.year}</span>`
                 listTaGrants.appendChild(year)
