@@ -1119,7 +1119,7 @@ function populatePage() {
 
             let listTaGrants = document.createElement("ul")
 
-            if (grant.title !== null) {
+            if (grant.title !== null && grant.year >= 2025 ) {
                 listTaGrants.setAttribute("class", "trust-africa-grants")
                 let title = document.createElement("li")
                 title.setAttribute("class", "title")
